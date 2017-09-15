@@ -3,11 +3,11 @@
 \usepackage{tabularx}
 \usepackage{booktabs}
 
-\title{CAS 741: Problem Statement\\Title of Project}
+\title{CAS 741: Problem Statement\\Simple Digital Signal Processing Using FFT }
 
-\author{Author name and macid}
+\author{Yuzhi Zhao}
 
-\date{}
+\date{Sep, 14, 2017}
 
 \input{../Comments}
 
@@ -28,7 +28,20 @@ Date2 & Name(s) & Description of changes\\
 \end{tabularx}
 \end{table}
 
-Put your problem statement here.  Comments to you can be added, like this:
+Put your problem statement here.  \\
+An FFT can rapidly computes DFT by factorizing the DFT  matrix into a product of sparse factors. As a result, it manages to reduce the complexity of computing the DFT from 
+$\mathcal{O}(\log{}n^2)$, which arises if one simple applies the definition of DFT, to 
+$\mathcal{O}(n\log{}n)$ , where $\mathcal{}n$ is the data size. Because of this algorithm decreasing the amount of calculation incredibly so that the FFT is widely used in the digital signal processing, fast discrete Hartley transform and etc.\\
+
+This project aims at providing a FFT library to other softwares which include some FFT implementations or calculations. This FFT library should include both some basic DFT calculation functions, such as DFT and IDFT, and more extension FFT related functions like retrieving the major peak of the result of FFT, calculating the times of addition or multiplication being executed during FFT process. Also, for the  calculation which bases on FFT algorithm itself, this library should provide with solid supports to different types of input whatever they are in real datas or in complex datas.\\
+
+In the meantime, this FFT library should have clear statements for each function and it should be successfully run under different operating systems.\\
+
+By creating a FFT library as described above, softwares in various fields which have to implement FFT can easily approach the library and retrieve proper functions to achieve the goals.
+
+
+
+Comments to you can be added, like this:
 
 \wss{comment}
 
