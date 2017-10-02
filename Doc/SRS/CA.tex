@@ -84,6 +84,11 @@
 
 \maketitle
 
+
+\newpage
+
+\tableofcontents
+
 ~\newpage
 
 \pagenumbering{roman}
@@ -127,10 +132,6 @@ description of the unit and the SI name.
   %	\caption{Provide a caption}
 %\end{table}
 
-\wss{Only include the units that your CA actually uses.  If there are no units
-  for your problem, like for a general purpose library, you should still include
-the heading, with the content ``not applicable'' (or similar).}
-
 \subsection{Table of Symbols}
 
 The table that follows summarizes the symbols used in this document along with
@@ -162,27 +163,15 @@ which heat is transferred in
   \midrule 
   A & Assumption\\
   DD & Data Definition\\
-  GD & General Definition\\
   GS & Goal Statement\\
   IM & Instance Model\\
-  LC & Likely Change\\
-  PS & Physical System Description\\
-  R & Requirement\\
   SRS & Software Requirements Specification\\
-  \famname{} & FFT\\
+  \famname{} & Fast Fourier Transform\\
   T & Theoretical Model\\
-  DFT & \\
-  IDFT & \\
+  DFT & Discrete Fourier Transform\\
+  IDFT & Invers Discrete Transform\\
   \bottomrule
 \end{tabular}\\
-
-\wss{Add any other abbreviations or acronyms that you add}
-
-\newpage
-
-\tableofcontents
-
-~\newpage
 
 \pagenumbering{arabic}
 
@@ -215,6 +204,14 @@ take advantage of FFT algorithms to do DFT or IDFT calcualtion effectively.
 Reviewers of this documentation should have a  strong knowledge in Complex Variables Functions as well as have an understanding of differential equaltions. 
 
 \subsection{Organization of Document}
+The organization of this document follows the template for an SRS for scientific
+computing software proposed by~\cite{Koothoor2013} and \cite{SmithAndLai2005}.
+The presentation follows the standard pattern of presenting goals, theories,
+definitions, and assumptions.  For readers that would like a more bottom up
+approach, they can start reading the instance models in Section
+\ref{sec_instance} and trace back to find any additional information they
+require.  The instance models provide the algebraic equations that model the FFT algorithm.
+
 
 \section{General System Description}
 
@@ -256,12 +253,12 @@ The end user of \famname{} should have an understanding of undergraduate Level
 1 Calculus and Physics.
 
 \subsection{Potential System Constraints}
-
-\wss{You may not have any system constraints}
+Not Applicable.
 
 \section{Commonalities}
 
 \subsection{Background Overview} \label{Sec_Background}
+
 
 \subsection{Terminology and  Definitions}
 
@@ -288,9 +285,7 @@ easier to correctly understand the requirements:
 \subsection{Data Definitions} \label{sec_datadef}
 
 This section collects and defines all the data needed to build the instance
-models. The dimension of each quantity is also given.  \wss{Modify the examples
-  below for your problem, and add additional definitions as appropriate.}
-
+models. The dimension of each quantity is also given.  
 ~\newline
 
 \noindent
@@ -467,8 +462,7 @@ The even term set of the complete PSD but keeping the same physical meaning as P
 \subsection{Theoretical Models} \label{sec_theoretical}
 
 This section focuses on the general equations and laws that \famname{} is based
-on.  \wss{Modify the examples below for your problem, and add additional models
-  as appropriate.}
+on. 
 
 ~\newline
 
@@ -478,7 +472,7 @@ on.  \wss{Modify the examples below for your problem, and add additional models
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
   \hline
   \rowcolor[gray]{0.9}
-  Number& T\refstepcounter{theorynum}\thetheorynum \label{T_COE}\\
+  Number& T\refstepcounter{theorynum}\thetheorynum \label{T_DFT}\\
   \hline
   Label&\bf Discrete Fourier Transform(DFT)\\
   \hline
@@ -504,7 +498,7 @@ on.  \wss{Modify the examples below for your problem, and add additional models
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
   \hline
   \rowcolor[gray]{0.9}
-  Number& T\refstepcounter{theorynum}\thetheorynum \label{T_COE}\\
+  Number& T\refstepcounter{theorynum}\thetheorynum \label{T_IDFT}\\
   \hline
   Label&\bf Inverse Discrete Fourier Transform(IDFT)\\
   \hline
@@ -531,7 +525,7 @@ on.  \wss{Modify the examples below for your problem, and add additional models
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
   \hline
   \rowcolor[gray]{0.9}
-  Number& T\refstepcounter{theorynum}\thetheorynum \label{T_COE}\\
+  Number& T\refstepcounter{theorynum}\thetheorynum \label{T_EF}\\
   \hline
   Label&\bf Euler's Formula\\
   \hline
@@ -557,14 +551,15 @@ Euler's formula, named after Leonhard Euler, is a mathematical formula in comple
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
   \hline
   \rowcolor[gray]{0.9}
-  Number& T\refstepcounter{theorynum}\thetheorynum \label{T_COE}\\
+  Number& T\refstepcounter{theorynum}\thetheorynum \label{T_POW}\\
   \hline
-  Label&\bf Euler's Formula\\
+  Label&\bf Periodicity Of $W_N^{kn}$\\
   \hline
-  Equation& ${e}^{ix}$ = $cosx$ + $isinx$\\
+  Equation& $W_N^{kn}$ =  $W_N^{k(n+N)}$\\
   \hline
   Description & 
-Euler's formula, named after Leonhard Euler, is a mathematical formula in complex analysis that establishes the fundamental relationship between the trigonometric functions and the complex exponential function. ${e}$ is the base of the natural logarithm, i is the imaginary unit, and cos and sin are the trigonometric functions cosine and sine respectively, with the argument x given in radians. \\
+ $W_N^{kn}$ is a periodic function and the period is N. Using Euler's Formula can prove this.
+\\
   \hline
   Source &
           \url {https://en.wikipedia.org/wiki/Euler%27s_formula} \\
@@ -575,36 +570,67 @@ Euler's formula, named after Leonhard Euler, is a mathematical formula in comple
 \end{tabular}
 \end{minipage}\\
 
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+  \hline
+  \rowcolor[gray]{0.9}
+  Number& T\refstepcounter{theorynum}\thetheorynum \label{T_TOWS}\\
+  \hline
+  Label&\bf A Transform Of $W_N^{kn}$\\
+  \hline
+  Equation& $W_N^{akn}$ =  $W_{N/a}^{kn}$\\
+  \hline
+  Description & 
+a is a coefficient. This transform is frequently used in FFT algorithms.
+\\
+  \hline
+  Source & \\
+  % The above web link should be replaced with a proper citation to a publication
+  \hline
+  Ref.\ By & \dref{ROCT}\\
+  \hline
+\end{tabular}
+\end{minipage}\\
 
 ~\newline
 
-\section{Variabilities}
+\subsection{Instance Models} \label{sec_instance}
 
-\subsection{Assumptions}
+~\newline
 
-\begin{itemize}
+%Instance Model 1
 
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:]
-The number of  input of radix-2 FFT and IFFT shoud be $2^s$($s\in\mathbb{Z}$, s $<$ 20) [\tref{T_COE}].
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:]
-The number of input of radix-3 FFT and IFFT should be $3^s$($s\in\mathbb{Z}$, s $<$ 20) [\tref{T_COE}].
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:]
-The length of $X[k] $sequence is always equal to the length of sequence $x(n)$  [\tref{T_COE}].
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:]
-The coefficient of every term in $x(n)$ is an integer for both complex and real number  [\tref{T_COE}].
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:]
-When retrieving the complex number FFT function, some terms are still real numbers. Users enter 0 as an coefficient for complex terms under this occation [\tref{T_COE}].
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:]
-Assume the strides for ${X}[n]$ and ${x}(n)$ are both 1.
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:]
-The length of input sequence is known [\tref{T_COE}].
+\noindent
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+  \hline
+  \rowcolor[gray]{0.9}
+  Number& IM\refstepcounter{instnum}\theinstnum \label{ewat}\\
+  \hline
+  Label& \bf Radix-2 FFT Calculation\\
+  \hline
+  Input& $a_n$, $b_n$, N, r from \iref{epcm}\\
+  &The input is constrained so that $N \leq 20$, r = 2.\\
+  \hline
+  Output& X[k], k =(0, 1, ...,  N),  in format 'a + bi'\\
+  \hline
+  Description& X[k] is the power spectral density (\si{\watt\per\hertz}),\\
+&a is the real number part,\\
+&b is the coefficient part of complex number part.\\
+  \hline
+  Sources&~\cite{Lightstone2012} \ \\
+  \hline
+  Ref.\ By & \iref{epcm}\\
+  \hline
+\end{tabular}
+\end{minipage}\\
 
-
-\end{itemize}
-
-\subsection{Calculation} \label{sec_Calculation}
-\begin{itemize}
-\item Theory module to address [\tref{T_COE}]:\\
+\subsubsection*{Detailed Radix-2 FFT Algirithm}
 
 \begin{align*}
 X[k] &= \sum\limits_{n=0}^{N-1}x(n)W_{N}^{kn}\\
@@ -640,12 +666,41 @@ Figure~\ref{Fig_Radix-2FFT}
 \end{figure}
 
 From the diagram, there were twice times of division of even and odd sequences. The first time division spilt the even and odd sequences. The second time, we took even and odd sequences retrieved from last division as two new sequences and split both of them into the even and odd sequences again. So far from the lowest level, we can consider our original sequence as a four-piece sequences. And then we can compute the sequence from the lowest level. Thus, we can develop our algorithm to a bigger domain. Unless the number of terms
-in a sequence is in pattern of  $2^s$($s\in\mathbb{Z}$, s $<$ 20), the sequence can be reduced until the smallest piece is consist of two terms.
+in a sequence is in pattern of  $2^s$($s\in\mathbb{Z}$, s $<$ 20), the sequence can be reduced until the smallest piece is consist of two terms.\\
+\\
+Radix-2 IFFT implements the same algorithim.\\
 
-\end{itemize}
+~\newline
 
-\begin{itemize}
-\item Theory module to address [\tref{T_COE}]:\\
+%Instance Model 2
+
+\noindent
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+  \hline
+  \rowcolor[gray]{0.9}
+  Number& IM\refstepcounter{instnum}\theinstnum \label{ewat}\\
+  \hline
+  Label& \bf Radix-3 FFT Calculation\\
+  \hline
+  Input& $a_n$, $b_n$, N, r from \iref{epcm}\\
+  &The input is constrained so that $N \leq 20$, r = 3.\\
+  \hline
+  Output& X[k], k =(0, 1, ...,  N),  in format 'a + bi'\\
+  \hline
+  Description& X[k] is the power spectral density (\si{\watt\per\hertz}),\\
+&a is the real number part,\\
+&b is the coefficient part of complex number part.\\
+  \hline
+  Sources&~\cite{Lightstone2012} \ \\
+  \hline
+  Ref.\ By & \iref{epcm}\\
+  \hline
+\end{tabular}
+\end{minipage}\\
+
+\subsubsection*{Detailed Radix-3 FFT Algirithm}
 
 \begin{align*}
 X[k] &= \sum\limits_{n=0}^{N-1}x(n)W_{N}^{kn}\\
@@ -683,18 +738,170 @@ Figure~\ref{Fig_Radix-3FFT}
 \end{center}
 \end{figure}
 
-From the diagram, there were twice times of division of even and odd sequences. The first time division spilt the even and odd sequences. The second time, we took even and odd sequences retrieved from last division as two new sequences and split both of them into the even and odd sequences again. So far from the lowest level, we can consider our original sequence as a four-piece sequences. And then we can compute the sequence from the lowest level. Thus, we can develop our algorithm to a bigger domain. Unless the number of terms
-in a sequence is in pattern of  $2^s$($s\in\mathbb{Z}$, s $<$ 20), the sequence can be reduced until the smallest piece is consist of two terms.
+From the diagram, there were two times of division of sequences. Each division split sequence into three parts. The first sequence is the sum of all terms whose sequence number can be divided by 3 without the rest. The second sequence is the sum of all terms whose sequence number can be divided by 3 with rest of 1. The third sequence is the sum of all terms whose sequence number can be divided by 3 with the rest of 2. The first time division spilt the sequence into three parts following the rules as mentioned. The second time, we implement the same rule to split these three sequences so that each sequence is divided into three sequences. So far from the lowest level, we can consider our original sequence as a nine-piece sequences. And then we can compute the sequence from the lowest level. Thus, we can develop our algorithm to a bigger domain. Unless the number of terms
+in a sequence is in pattern of  $3^s$($s\in\mathbb{Z}$, s $<$ 20), the sequence can be reduced until the smallest piece is consist of three terms.\\
+\\
+Radix-3 IFFT implements the same algorithim.\\
 
-\end{itemize}
+
+
+\section{Variabilities}
+
+\subsection{Assumptions}
 
 \begin{itemize}
-\item Inverse Fast Fourier Transform(IFFT): A fast algorithm computes the inverse discrete Fourier transform (IDFT) of a sequence.
+
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:]
+The number of  input of radix-2 FFT and IFFT shoud be $2^s$($s\in\mathbb{Z}$, s $<$ 20) [\tref{T_DFT}].
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:]
+The number of input of radix-3 FFT and IFFT should be $3^s$($s\in\mathbb{Z}$, s $<$ 20) [\tref{T_DFT}].
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:]
+The length of $X[k] $sequence is always equal to the length of sequence $x(n)$  [\tref{T_DFT}].
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:]
+The coefficient of every term in $x(n)$ is an integer for both complex and real number  [\tref{T_DFT}].
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:]
+When retrieving the complex number FFT function, some terms are still real numbers. Users enter 0 as an coefficient for complex terms under this occation [\tref{T_DFT}].
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:]
+Assume the strides for ${X}[n]$ and ${x}(n)$ are both 1.
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:]
+The length of input sequence is known [\tref{T_DFT}].
+
+
 \end{itemize}
 
+\subsection{Calculation} \label{sec_Calculation}
+Not Applicable.
 \subsection{Output} \label{sec_Output}    
+Not Applicable.
+
+
 
 \section{Traceability Matrices and Graphs}
+The purpose of the traceability matrices is to provide easy references on what has to be additionally modified if a certain component is changed.  Every time a 
+component is changed, the items in the column of that component that are 
+marked with an ``X'' should be modified as well.  Table~\ref{Table:trace}
+shows the dependencies of theoretical models, general definitions, data
+definitions, and instance models with each other. Table~\ref{Table:R_trace} shows
+the dependencies of instance models, requirements, and data constraints on each other. Table~\ref{Table:A_trace} shows the dependencies of theoretical models, general definitions, data definitions,  instance models, and likely changes on the assumptions.
+
+\afterpage{
+\begin{landscape}
+\begin{table}[h!]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+	& \aref{A_OnlyThermalEnergy}& \aref{A_hcoeff}& \aref{A_mixed}& \aref{A_tpcm}& \aref{A_const_density}& \aref{A_const_C}& \aref{A_Newt_coil}& \aref{A_tcoil}& \aref{A_tlcoil}& \aref{A_Newt_pcm}& \aref{A_charge}& \aref{A_InitTemp}& \aref{A_OpRangePCM}& \aref{A_OpRange}& \aref{A_htank}& \aref{A_int_heat}& \aref{A_vpcm}& \aref{A_PCM_state}& \aref{A_Pressure} \\
+\hline
+\tref{T_DFT}        & X& & & & & & & & & & & & & & & & & & \\ \hline
+\tref{T_IDFT}        & & & & & & & & & & & & & & & & & & & \\ \hline
+\tref{T_EF}        & & & & & & & & & & & & & & & & & & & \\ \hline
+\tref{T_POW}        & & & & & & & & & & & & & & & & & & & \\ \hline
+\tref{T_TOW}        & & & & & & & & & & & & & & & & & & & \\ \hline
+\dref{NL}           & & X& & & & & & & & & & & & & & & & & \\ \hline
+\dref{ROCT}         & & & X& X& X& X& & & & & & & & & & & & & \\ \hline
+\ddref{FluxCoil}    & & & & & & & X& X& X& & & & & & & & & & \\ \hline
+\ddref{FluxPCM}     & & & X& X& & & & & & X& & & & & & & & & \\ \hline
+\ddref{D_HOF}       & & & & & & & & & & & & & & & & & & & \\ \hline
+\ddref{D_MF}        & & & & & & & & & & & & & & & & & & & \\ \hline
+\iref{ewat}         & & & & & & & & & & & X& X& & X& X& X& & & X \\ \hline
+\iref{epcm}         & & & & & & & & & & & & X& X& & & X& X& X& \\ \hline
+\iref{I_HWAT}       & & & & & & & & & & & & & & X& & & & & X \\ \hline
+\iref{I_HPCM}       & & & & & & & & & & & & & X& & & & & X & \\ \hline
+\lcref{LC_tpcm}     & & & & X& & & & & & & & & & & & & & & \\ \hline
+\lcref{LC_tcoil}    & & & & & & & & X& & & & & & & & & & & \\ \hline
+\lcref{LC_tlcoil}   & & & & & & & & & X& & & & & & & & & & \\ \hline
+\lcref{LC_charge}   & & & & & & & & & & & X& & & & & & & & \\ \hline
+\lcref{LC_InitTemp} & & & & & & & & & & & & X& & & & & & & \\ \hline
+\lcref{LC_htank}    & & & & & & & & & & & & & & & X& & & & \\
+\hline
+\end{tabular}
+\caption{Traceability Matrix Showing the Connections Between Assumptions and Other Items}
+\label{Table:A_trace}
+\end{table}
+\end{landscape}
+}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline        
+	& \tref{T_DFT}& \tref{T_IDFT}& \tref{T_EF}& \tref{T_POW}& \tref{T_TOW}& \dref{NL}& \dref{ROCT} & \ddref{FluxCoil}& \ddref{FluxPCM} & \ddref{D_HOF}& \ddref{D_MF}& \iref{ewat}& \iref{epcm}& \iref{I_HWAT}& \iref{I_HPCM} \\
+\hline
+\tref{T_DFT}     & & & & & & & & & & & & & \\ \hline
+\tref{T_IDFT}     & & & X& & & & & & & & & & \\ \hline
+\tref{T_EF}     & & & & & & & & & & & & & \\ \hline
+\tref{T_POW}     & & & X& & & & & & & & & & \\ \hline
+\tref{T_TOW}     & & & & & & & & & & & & & \\ \hline
+\dref{NL}        & & & & & & & & & & & & & \\ \hline
+\dref{ROCT}      & X& & & & & & & & & & & & \\ \hline
+\ddref{FluxCoil} & & & & X& & & & & & & & & \\ \hline
+\ddref{FluxPCM}  & & & & X& & & & & & & & & \\ \hline
+\ddref{D_HOF}    & & & & & & & & & & & & & \\ \hline
+\ddref{D_MF}     & & & & & & & & X& & & & & \\ \hline
+\iref{ewat}      & & & & & X& X& X& & & & X& & \\ \hline
+\iref{epcm}      & & & & & X& & X& & X& X& & & X \\ \hline
+\iref{I_HWAT}    & & X& & & & & & & & & & & \\ \hline
+\iref{I_HPCM}    & & X& X& & & & X& X& X& & X& & \\
+\hline
+\end{tabular}
+\caption{Traceability Matrix Showing the Connections Between Items of Different Sections}
+\label{Table:trace}
+\end{table}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\hline
+	& \iref{ewat}& \iref{epcm}& \iref{I_HWAT}& \iref{I_HPCM}& \ref{sec_DataConstraints}& \rref{R_RawInputs}& \rref{R_MassInputs} \\
+\hline
+\iref{ewat}            & & X& & & & X& X \\ \hline
+\iref{epcm}            & X& & & X& & X& X \\ \hline
+\iref{I_HWAT}          & & & & & & X& X \\ \hline
+\iref{I_HPCM}          & & X& & & & X& X \\ \hline
+\rref{R_RawInputs}     & & & & & & & \\ \hline
+\rref{R_MassInputs}    & & & & & & X& \\ \hline
+\rref{R_CheckInputs}   & & & & & X& & \\ \hline
+\rref{R_OutputInputs}  & X& X& & & & X& X \\ \hline
+\rref{R_TempWater}     & X& & & & & & \\ \hline 
+\rref{R_TempPCM}       & & X& & & & & \\ \hline
+\rref{R_EnergyWater}   & & & X& & & & \\ \hline
+\rref{R_EnergyPCM}     & & & & X& & & \\ \hline
+\rref{R_VerifyOutput}  & & & X& X& & & \\ \hline
+\rref{R_timeMeltBegin} & & X& & & & & \\ \hline
+\rref{R_timeMeltEnd}   & & X& & & & & \\ 
+\hline
+\end{tabular}
+\caption{Traceability Matrix Showing the Connections Between Requirements and Instance Models}
+\label{Table:R_trace}
+\end{table}
+
+The purpose of the traceability graphs is also to provide easy references on what has to be additionally modified if a certain component is changed.  The arrows in the graphs represent dependencies. The component at the tail of an arrow is depended on by the component at the head of that arrow. Therefore, if a component is changed, the components that it points to should also be changed. Figure~\ref{Fig_ATrace} shows the dependencies of theoretical models, general definitions, data definitions, 
+instance models, likely changes, and assumptions on each other. Figure~\ref{Fig_RTrace} shows the dependencies of instance models, requirements, and data constraints on each other.\par
+NOTE: Building a tool to automatically generate the graphical 
+representation of the matrix by scanning the labels and reference can be 
+future work.
+
+\begin{figure}[h!]
+	\begin{center}
+		%\rotatebox{-90}
+		{
+			\includegraphics[width=\textwidth]{ATrace.png}
+		}
+		\caption{\label{Fig_ATrace} Traceability Matrix Showing the Connections Between Items of Different Sections}
+	\end{center}
+\end{figure}
+
+
+\begin{figure}[h!]
+	\begin{center}
+		%\rotatebox{-90}
+		{
+			\includegraphics[width=0.7\textwidth]{RTrace.png}
+		}
+		\caption{\label{Fig_RTrace} Traceability Matrix Showing the Connections Between Requirements, Instance Models, and Data Constraints}
+	\end{center}
+\end{figure}
+
 
 \wss{You will have to add tables.}
 
