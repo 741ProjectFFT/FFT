@@ -81,7 +81,6 @@
 \title{FFT Library} 
 \author{Yuzhi Zhao}
 \date{\today}
-
 \maketitle
 
 
@@ -144,15 +143,13 @@ systems.  The symbols are listed in alphabetical order.
 \noindent \begin{longtable*}{l l p{12cm}} \toprule
 \textbf{symbol} & \textbf{unit} & \textbf{description}\\
 \midrule 
-$A_C$ & \si[per-mode=symbol] {\square\metre} & coil surface area
+$a_n$ & none & coefficient of real number
 \\
-$A_\text{in}$ & \si[per-mode=symbol] {\square\metre} & surface area over 
-which heat is transferred in
+$b_n$ &none &coefficient of complex number
 \\ 
 \bottomrule
 \end{longtable*}
-\wss{Use your problems actual symbols.  The si package is a good idea to use for
-  units.}
+
 
 \subsection{Abbreviations and Acronyms}
 
@@ -177,14 +174,14 @@ which heat is transferred in
 
 \section{Introduction}
 
-\wss{This CA template is based on \citet{Smith2006}.  It
-  will get you started, but you will have to make changes.  Any changes to
-  section headings should be approved by the instructor, since that implies a
-  deviation from the template.  Although the bits shown below do not include
-  type information, you may need to add this information for your problem.}
+Fast Fourier transforms are widely used for many applications in engineering, science, and mathematics. FFT's importance derives from the fact that in signal processing and image processing it has made working in frequency domain equally computationally feasible as working in temporal or spatial domain. \\
 
-\wss{Feel free to change the appearance of the report by modifying the LaTeX
-  commands.}
+The following section provides an overview of the Software Requirements
+Specification (SRS) for a FFT Library.  The
+developed program will be referred to as Fast Fourier Transform Library
+(\famname{}).  This section explains the purpose of this document, the scope of
+the system, the characteristics of the intended readers and the organization of
+the document.
 
 \subsection{Purpose of Document}
 
@@ -244,21 +241,30 @@ flow between the system and its environment.\\
 \begin{itemize}
 \item Determine if the inputs satisfy the required data type and format
 \item Calculate the required outputs
+\item Detect data type mismatch because the input data should be integer.
 \end{itemize}
 \end{itemize}
 
 \subsection{Potential User Characteristics} \label{SecUserCharacteristics}
 
-The end user of \famname{} should have an understanding of undergraduate Level
+The end user of \famname{} Library should have an understanding of undergraduate Level
 1 Calculus and Physics.
 
 \subsection{Potential System Constraints}
-Not Applicable.
+There is no system constraints.
 
 \section{Commonalities}
 
 \subsection{Background Overview} \label{Sec_Background}
-
+An FFT calculation can rapidly computes DFT by factorizing the DFT matrix into a product of
+sparse factors. As a result, it manages to reduce the complexity of computing
+the DFT from$\mathcal{O}(\log{}n^2)$, which arises if one simple applies the
+definition of
+DFT, to$\mathcal{O}(n\log{}n)$ , where $\mathcal{}n$ is the data size. Because
+of this
+algorithm decreasing the amount of calculation incredibly so that the FFT is
+widely used in the digital signal processing, fast discrete Hartley
+transform.
 
 \subsection{Terminology and  Definitions}
 
@@ -294,7 +300,7 @@ models. The dimension of each quantity is also given.
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
 \hline
 \rowcolor[gray]{0.9}
-Number& DD\refstepcounter{datadefnum}\thedatadefnum \label{FluxCoil}\\
+Number& DD\refstepcounter{datadefnum}\thedatadefnum \label{D_SRE}\\
 \hline
 Label& \bf A symbol represents ${e}^{-2\pi i/N}$ \\
 \hline
@@ -307,12 +313,12 @@ Symbol & ${W}_N$\\
   Equation& ${W}_N = {e}^{-2\pi i/N}$\\
   \hline
   Description & 
-                ${W}_N$ is a simpler term to represent $ {e}^{-2\pi i/N} $. Readers can analyse complex-structure equations more directly and focus more on transformation process.
+                ${W}_N$ is a simpler term to represent $ {e}^{-2\pi i/N} $ and N is the data size. Readers can analyse complex-structure equations more directly and focus more on transformation process.
   \\
   \hline
   Sources& Commently Admitted \\
   \hline
-  Ref.\ By & \iref{ewat}\\
+  Ref.\ By & \iref{I_R2C}, \iref{I_R3C}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -326,7 +332,7 @@ Symbol & ${W}_N$\\
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
 \hline
 \rowcolor[gray]{0.9}
-Number& DD\refstepcounter{datadefnum}\thedatadefnum \label{FluxCoil}\\
+Number& DD\refstepcounter{datadefnum}\thedatadefnum \label{D_PSD}\\
 \hline
 Label& \bf Power Spectral Density (PSD)\\
 \hline
@@ -344,7 +350,7 @@ Symbol & ${X}[k]$\\
   \hline
   Sources& \url{ http://www.cygres.com/OcnPageE/Glosry/SpecE.html }\\
   \hline
-  Ref.\ By & \iref{ewat}\\
+  Ref.\ By & \iref{I_R2C}, \iref{I_R3C}, \tref{T_DFT}, \tref{T_IDFT}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -357,7 +363,7 @@ Symbol & ${X}[k]$\\
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
 \hline
 \rowcolor[gray]{0.9}
-Number& DD\refstepcounter{datadefnum}\thedatadefnum \label{FluxCoil}\\
+Number& DD\refstepcounter{datadefnum}\thedatadefnum \label{D_AF}\\
 \hline
 Label& \bf Amplitude Function\\
 \hline
@@ -374,7 +380,7 @@ The amplitude of a periodic variable is a measure of its change over a single pe
   \hline
   Sources& \url{https://en.wikipedia.org/wiki/Amplitude }\\
   \hline
-  Ref.\ By & \iref{ewat}\\
+  Ref.\ By & \iref{I_R2C}, \iref{I_R3C}, \tref{T_DFT}, \tref{T_IDFT}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -387,7 +393,7 @@ The amplitude of a periodic variable is a measure of its change over a single pe
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
 \hline
 \rowcolor[gray]{0.9}
-Number& DD\refstepcounter{datadefnum}\thedatadefnum \label{FluxCoil}\\
+Number& DD\refstepcounter{datadefnum}\thedatadefnum \label{D_OT}\\
 \hline
 Label& \bf The Odd Terms OF Power Spectral Density\\
 \hline
@@ -405,7 +411,7 @@ The odd term set of the complete PSD but keeping the same physical meaning as PS
   \hline
   Sources& \\
   \hline
-  Ref.\ By & \iref{ewat}\\
+  Ref.\ By & \iref{I_R2C}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -419,7 +425,7 @@ The odd term set of the complete PSD but keeping the same physical meaning as PS
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
 \hline
 \rowcolor[gray]{0.9}
-Number& DD\refstepcounter{datadefnum}\thedatadefnum \label{FluxCoil}\\
+Number& DD\refstepcounter{datadefnum}\thedatadefnum \label{D_ET}\\
 \hline
 Label& \bf The Even Terms OF Power Spectral Density\\
 \hline
@@ -437,7 +443,7 @@ The even term set of the complete PSD but keeping the same physical meaning as P
   \hline
   Sources& \\
   \hline
-  Ref.\ By & \iref{ewat}\\
+  Ref.\ By & \iref{I_R2C}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -485,7 +491,7 @@ on.
            \url  {https://en.wikipedia.org/wiki/Discrete_Fourier_transform}\\
   % The above web link should be replaced with a proper citation to a publication
   \hline
-  Ref.\ By & \dref{ROCT}\\
+  Ref.\ By & \iref{I_R2C}, \iref{I_R3C}, \tref{T_IDFT}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -511,7 +517,7 @@ on.
           \url  {https://en.wikipedia.org/wiki/Discrete_Fourier_transform}\\
   % The above web link should be replaced with a proper citation to a publication
   \hline
-  Ref.\ By & \dref{ROCT}\\
+  Ref.\ By &  \iref{I_R2C}, \iref{I_R3C}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -538,7 +544,7 @@ Euler's formula, named after Leonhard Euler, is a mathematical formula in comple
           \url {https://en.wikipedia.org/wiki/Euler%27s_formula} \\
   % The above web link should be replaced with a proper citation to a publication
   \hline
-  Ref.\ By & \dref{ROCT}\\
+  Ref.\ By &  \iref{I_R2C}, \iref{I_R3C}, \tref{T_POW}, \tref{T_TOW}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -565,7 +571,7 @@ Euler's formula, named after Leonhard Euler, is a mathematical formula in comple
           \url {https://en.wikipedia.org/wiki/Euler%27s_formula} \\
   % The above web link should be replaced with a proper citation to a publication
   \hline
-  Ref.\ By & \dref{ROCT}\\
+  Ref.\ By &  \iref{I_R2C}, \iref{I_R3C}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -578,7 +584,7 @@ Euler's formula, named after Leonhard Euler, is a mathematical formula in comple
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
   \hline
   \rowcolor[gray]{0.9}
-  Number& T\refstepcounter{theorynum}\thetheorynum \label{T_TOWS}\\
+  Number& T\refstepcounter{theorynum}\thetheorynum \label{T_TOW}\\
   \hline
   Label&\bf A Transform Of $W_N^{kn}$\\
   \hline
@@ -591,7 +597,7 @@ a is a coefficient. This transform is frequently used in FFT algorithms.
   Source & \\
   % The above web link should be replaced with a proper citation to a publication
   \hline
-  Ref.\ By & \dref{ROCT}\\
+  Ref.\ By &  \iref{I_R2C}, \iref{I_R3C}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -599,8 +605,6 @@ a is a coefficient. This transform is frequently used in FFT algorithms.
 ~\newline
 
 \subsection{Instance Models} \label{sec_instance}
-
-~\newline
 
 %Instance Model 1
 
@@ -610,22 +614,25 @@ a is a coefficient. This transform is frequently used in FFT algorithms.
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
   \hline
   \rowcolor[gray]{0.9}
-  Number& IM\refstepcounter{instnum}\theinstnum \label{ewat}\\
+  Number& IM\refstepcounter{instnum}\theinstnum \label{I_R2C}\\
   \hline
   Label& \bf Radix-2 FFT Calculation\\
   \hline
-  Input& $a_n$, $b_n$, N, r from \iref{epcm}\\
-  &The input is constrained so that $N \leq 20$, r = 2.\\
+  Input& $a_n$, $b_n$, N, r \\
+  &The input is constrained so that  r = 2.\\
+&If invoking the real data FFT or IFFT library, there is no $b_n$ to be entered.\\
   \hline
   Output& X[k], k =(0, 1, ...,  N),  in format 'a + bi'\\
   \hline
   Description& X[k] is the power spectral density (\si{\watt\per\hertz}),\\
 &a is the real number part,\\
 &b is the coefficient part of complex number part.\\
+&N is the size of data.\\
+&r is the radix.\\
   \hline
   Sources&~\cite{Lightstone2012} \ \\
   \hline
-  Ref.\ By & \iref{epcm}\\
+  Ref.\ By & -\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -680,22 +687,25 @@ Radix-2 IFFT implements the same algorithim.\\
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
   \hline
   \rowcolor[gray]{0.9}
-  Number& IM\refstepcounter{instnum}\theinstnum \label{ewat}\\
+  Number& IM\refstepcounter{instnum}\theinstnum \label{I_R3C}\\
   \hline
   Label& \bf Radix-3 FFT Calculation\\
   \hline
-  Input& $a_n$, $b_n$, N, r from \iref{epcm}\\
-  &The input is constrained so that $N \leq 20$, r = 3.\\
+  Input& $a_n$, $b_n$, N, r\\
+  &The input is constrained so that  r = 3.\\
+&If invoking the real data FFT or IFFT library, there is no $b_n$ to be entered.\\
   \hline
   Output& X[k], k =(0, 1, ...,  N),  in format 'a + bi'\\
   \hline
   Description& X[k] is the power spectral density (\si{\watt\per\hertz}),\\
 &a is the real number part,\\
 &b is the coefficient part of complex number part.\\
+&N is the size of data.\\
+&r is the radix.\\
   \hline
   Sources&~\cite{Lightstone2012} \ \\
   \hline
-  Ref.\ By & \iref{epcm}\\
+  Ref.\ By & -\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -726,8 +736,7 @@ X[k] & =  \sum\limits_{r=0}^{N/3 -1}x(3r)(W_{N}^{3})^{kr} + W_{N}^{k}\sum\limits
 
 We can use FFT butterfly diagram to analysis a FFT computing process and we can clearly tell how the sequence is divided and computed. Here we will have a simplest
 N = 9, radix-3, butterfly diagram as example:\\
-\\
-\\
+
 Figure~\ref{Fig_Radix-3FFT}
 
 \begin{figure}[h!]
@@ -751,20 +760,20 @@ Radix-3 IFFT implements the same algorithim.\\
 
 \begin{itemize}
 
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:]
-The number of  input of radix-2 FFT and IFFT shoud be $2^s$($s\in\mathbb{Z}$, s $<$ 20) [\tref{T_DFT}].
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:]
-The number of input of radix-3 FFT and IFFT should be $3^s$($s\in\mathbb{Z}$, s $<$ 20) [\tref{T_DFT}].
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:]
-The length of $X[k] $sequence is always equal to the length of sequence $x(n)$  [\tref{T_DFT}].
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:]
-The coefficient of every term in $x(n)$ is an integer for both complex and real number  [\tref{T_DFT}].
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:]
-When retrieving the complex number FFT function, some terms are still real numbers. Users enter 0 as an coefficient for complex terms under this occation [\tref{T_DFT}].
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:]
-Assume the strides for ${X}[n]$ and ${x}(n)$ are both 1.
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:]
-The length of input sequence is known [\tref{T_DFT}].
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_N2}:]
+The number of  input of radix-2 FFT and IFFT shoud be $2^s$($s\in\mathbb{Z}$, s $<$ 20) [\iref{I_R2C}, \ddref{D_OT}].
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_N3}:]
+The number of input of radix-3 FFT and IFFT should be $3^s$($s\in\mathbb{Z}$, s $<$ 20) [\iref{I_R3C}].
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_Equal}:]
+The length of $X[k]$ sequence is always equal to the length of sequence $x(n)$  [\tref{T_DFT}, \tref{T_IDFT}, \iref{I_R2C}, \iref{I_R3C} ].
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_CoI}:]
+The coefficient of every term in $x(n)$ is an integer for both complex and real number  [\iref{I_R2C}, \iref{I_R3C}].
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_C0}:]
+When retrieving the complex number FFT function, some terms are still real numbers. Users enter 0 as an coefficient for complex terms under this occation [\iref{I_R2C}, \iref{I_R3C}].
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_Stride}:]
+Assume the strides for ${X}[n]$ and ${x}(n)$ are both 1 [\iref{I_R2C}, \iref{I_R3C},  \ddref{D_PSD}, \ddref{D_OT}, \ddref{D_ET}].
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_Length}:]
+The length of input sequence is known [\iref{I_R2C}, \iref{I_R3C}].
 
 
 \end{itemize}
@@ -780,40 +789,30 @@ Not Applicable.
 The purpose of the traceability matrices is to provide easy references on what has to be additionally modified if a certain component is changed.  Every time a 
 component is changed, the items in the column of that component that are 
 marked with an ``X'' should be modified as well.  Table~\ref{Table:trace}
-shows the dependencies of theoretical models, general definitions, data
-definitions, and instance models with each other. Table~\ref{Table:R_trace} shows
-the dependencies of instance models, requirements, and data constraints on each other. Table~\ref{Table:A_trace} shows the dependencies of theoretical models, general definitions, data definitions,  instance models, and likely changes on the assumptions.
+shows the dependencies of theoretical models, data
+definitions, and instance models with each other.
+ Table~\ref{Table:A_trace} shows the dependencies of theoretical models, data definitions,  instance models, and likely changes on the assumptions.
 
 \afterpage{
 \begin{landscape}
 \begin{table}[h!]
 \centering
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
 \hline
-	& \aref{A_OnlyThermalEnergy}& \aref{A_hcoeff}& \aref{A_mixed}& \aref{A_tpcm}& \aref{A_const_density}& \aref{A_const_C}& \aref{A_Newt_coil}& \aref{A_tcoil}& \aref{A_tlcoil}& \aref{A_Newt_pcm}& \aref{A_charge}& \aref{A_InitTemp}& \aref{A_OpRangePCM}& \aref{A_OpRange}& \aref{A_htank}& \aref{A_int_heat}& \aref{A_vpcm}& \aref{A_PCM_state}& \aref{A_Pressure} \\
+	& \aref{A_N2}& \aref{A_N3}& \aref{A_Equal}& \aref{A_CoI}& \aref{A_C0}& \aref{A_Stride}& \aref{A_Length}\\
 \hline
-\tref{T_DFT}        & X& & & & & & & & & & & & & & & & & & \\ \hline
-\tref{T_IDFT}        & & & & & & & & & & & & & & & & & & & \\ \hline
-\tref{T_EF}        & & & & & & & & & & & & & & & & & & & \\ \hline
-\tref{T_POW}        & & & & & & & & & & & & & & & & & & & \\ \hline
-\tref{T_TOW}        & & & & & & & & & & & & & & & & & & & \\ \hline
-\dref{NL}           & & X& & & & & & & & & & & & & & & & & \\ \hline
-\dref{ROCT}         & & & X& X& X& X& & & & & & & & & & & & & \\ \hline
-\ddref{FluxCoil}    & & & & & & & X& X& X& & & & & & & & & & \\ \hline
-\ddref{FluxPCM}     & & & X& X& & & & & & X& & & & & & & & & \\ \hline
-\ddref{D_HOF}       & & & & & & & & & & & & & & & & & & & \\ \hline
-\ddref{D_MF}        & & & & & & & & & & & & & & & & & & & \\ \hline
-\iref{ewat}         & & & & & & & & & & & X& X& & X& X& X& & & X \\ \hline
-\iref{epcm}         & & & & & & & & & & & & X& X& & & X& X& X& \\ \hline
-\iref{I_HWAT}       & & & & & & & & & & & & & & X& & & & & X \\ \hline
-\iref{I_HPCM}       & & & & & & & & & & & & & X& & & & & X & \\ \hline
-\lcref{LC_tpcm}     & & & & X& & & & & & & & & & & & & & & \\ \hline
-\lcref{LC_tcoil}    & & & & & & & & X& & & & & & & & & & & \\ \hline
-\lcref{LC_tlcoil}   & & & & & & & & & X& & & & & & & & & & \\ \hline
-\lcref{LC_charge}   & & & & & & & & & & & X& & & & & & & & \\ \hline
-\lcref{LC_InitTemp} & & & & & & & & & & & & X& & & & & & & \\ \hline
-\lcref{LC_htank}    & & & & & & & & & & & & & & & X& & & & \\
-\hline
+\tref{T_DFT}   & & &X & & & & \\ \hline
+\tref{T_IDFT}  & & &X & & & & \\ \hline
+\tref{T_EF}   & & & & & & &  \\ \hline
+\tref{T_POW}  & & X& & & &&  \\ \hline
+\tref{T_TOW}  & & & & & & &  \\ \hline
+\ddref{D_SRE}  & & & X& & & &\\ \hline
+\ddref{D_PSD}  & & & & & &X &\\ \hline
+\ddref{D_AF}   & & & & & & &  \\ \hline
+\ddref{D_OT}   & X& & & & & &\\ \hline
+\ddref{D_ET}    & & & & &  &X&\\ \hline
+\iref{I_R2C}     & X& & X& X&X &X  &X\\ \hline
+\iref{I_R3C}    & & X&X &X &X &X &X \\ \hline
 \end{tabular}
 \caption{Traceability Matrix Showing the Connections Between Assumptions and Other Items}
 \label{Table:A_trace}
@@ -823,103 +822,38 @@ the dependencies of instance models, requirements, and data constraints on each 
 
 \begin{table}[h!]
 \centering
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|}
 \hline        
-	& \tref{T_DFT}& \tref{T_IDFT}& \tref{T_EF}& \tref{T_POW}& \tref{T_TOW}& \dref{NL}& \dref{ROCT} & \ddref{FluxCoil}& \ddref{FluxPCM} & \ddref{D_HOF}& \ddref{D_MF}& \iref{ewat}& \iref{epcm}& \iref{I_HWAT}& \iref{I_HPCM} \\
+	& \tref{T_DFT}& \tref{T_IDFT}& \tref{T_EF}& \tref{T_POW}& \tref{T_TOW}&\ddref{D_SRE}&\ddref{D_PSD} & \ddref{D_AF}&\ddref{D_OT}&\ddref{D_ET}& \iref{I_R2C}& \iref{I_R3C} \\
 \hline
-\tref{T_DFT}     & & & & & & & & & & & & & \\ \hline
-\tref{T_IDFT}     & & & X& & & & & & & & & & \\ \hline
-\tref{T_EF}     & & & & & & & & & & & & & \\ \hline
-\tref{T_POW}     & & & X& & & & & & & & & & \\ \hline
-\tref{T_TOW}     & & & & & & & & & & & & & \\ \hline
-\dref{NL}        & & & & & & & & & & & & & \\ \hline
-\dref{ROCT}      & X& & & & & & & & & & & & \\ \hline
-\ddref{FluxCoil} & & & & X& & & & & & & & & \\ \hline
-\ddref{FluxPCM}  & & & & X& & & & & & & & & \\ \hline
-\ddref{D_HOF}    & & & & & & & & & & & & & \\ \hline
-\ddref{D_MF}     & & & & & & & & X& & & & & \\ \hline
-\iref{ewat}      & & & & & X& X& X& & & & X& & \\ \hline
-\iref{epcm}      & & & & & X& & X& & X& X& & & X \\ \hline
-\iref{I_HWAT}    & & X& & & & & & & & & & & \\ \hline
-\iref{I_HPCM}    & & X& X& & & & X& X& X& & X& & \\
-\hline
+\tref{T_DFT}  & & &X & & & & & & & &X &X \\ \hline
+\tref{T_IDFT}  & & & & & & & & & & &X & X\\ \hline
+\tref{T_EF}   & & & & X&X & & & & & &X &X \\ \hline
+\tref{T_POW}  & X& & & & & & & & & &X &X \\ \hline
+\tref{T_TOW}  & & & & & & & & & & &X &X \\ \hline
+\ddref{D_SRE}  & & & & & & & & & & &X &X \\ \hline
+\ddref{D_PSD}  & X&X & & & & & & & & &X & X\\ \hline
+\ddref{D_AF}   & X& X& & & & & & & & & X&X \\ \hline
+\ddref{D_OT}   & & & & & & & & & & &X& \\ \hline
+\ddref{D_ET}    & & & & & & & & & & &X & \\ \hline
+\iref{I_R2C}     & & & & & & & & & & & &  \\ \hline
+\iref{I_R3C}    & X& & & & & & & & & & & \\ \hline
+
 \end{tabular}
 \caption{Traceability Matrix Showing the Connections Between Items of Different Sections}
 \label{Table:trace}
 \end{table}
 
-\begin{table}[h!]
-\centering
-\begin{tabular}{|c|c|c|c|c|c|c|c|}
-\hline
-	& \iref{ewat}& \iref{epcm}& \iref{I_HWAT}& \iref{I_HPCM}& \ref{sec_DataConstraints}& \rref{R_RawInputs}& \rref{R_MassInputs} \\
-\hline
-\iref{ewat}            & & X& & & & X& X \\ \hline
-\iref{epcm}            & X& & & X& & X& X \\ \hline
-\iref{I_HWAT}          & & & & & & X& X \\ \hline
-\iref{I_HPCM}          & & X& & & & X& X \\ \hline
-\rref{R_RawInputs}     & & & & & & & \\ \hline
-\rref{R_MassInputs}    & & & & & & X& \\ \hline
-\rref{R_CheckInputs}   & & & & & X& & \\ \hline
-\rref{R_OutputInputs}  & X& X& & & & X& X \\ \hline
-\rref{R_TempWater}     & X& & & & & & \\ \hline 
-\rref{R_TempPCM}       & & X& & & & & \\ \hline
-\rref{R_EnergyWater}   & & & X& & & & \\ \hline
-\rref{R_EnergyPCM}     & & & & X& & & \\ \hline
-\rref{R_VerifyOutput}  & & & X& X& & & \\ \hline
-\rref{R_timeMeltBegin} & & X& & & & & \\ \hline
-\rref{R_timeMeltEnd}   & & X& & & & & \\ 
-\hline
-\end{tabular}
-\caption{Traceability Matrix Showing the Connections Between Requirements and Instance Models}
-\label{Table:R_trace}
-\end{table}
-
-The purpose of the traceability graphs is also to provide easy references on what has to be additionally modified if a certain component is changed.  The arrows in the graphs represent dependencies. The component at the tail of an arrow is depended on by the component at the head of that arrow. Therefore, if a component is changed, the components that it points to should also be changed. Figure~\ref{Fig_ATrace} shows the dependencies of theoretical models, general definitions, data definitions, 
-instance models, likely changes, and assumptions on each other. Figure~\ref{Fig_RTrace} shows the dependencies of instance models, requirements, and data constraints on each other.\par
+The purpose of the traceability graphs is also to provide easy references on what has to be additionally modified if a certain component is changed.  The arrows in the graphs represent dependencies. The component at the tail of an arrow is depended on by the component at the head of that arrow. Therefore, if a component is changed, the components that it points to should also be changed.\par
 NOTE: Building a tool to automatically generate the graphical 
 representation of the matrix by scanning the labels and reference can be 
 future work.
 
-\begin{figure}[h!]
-	\begin{center}
-		%\rotatebox{-90}
-		{
-			\includegraphics[width=\textwidth]{ATrace.png}
-		}
-		\caption{\label{Fig_ATrace} Traceability Matrix Showing the Connections Between Items of Different Sections}
-	\end{center}
-\end{figure}
-
-
-\begin{figure}[h!]
-	\begin{center}
-		%\rotatebox{-90}
-		{
-			\includegraphics[width=0.7\textwidth]{RTrace.png}
-		}
-		\caption{\label{Fig_RTrace} Traceability Matrix Showing the Connections Between Requirements, Instance Models, and Data Constraints}
-	\end{center}
-\end{figure}
-
-
-\wss{You will have to add tables.}
 
 \newpage
 
 \bibliographystyle {plainnat}
 \bibliography {../../ReferenceMaterial/References}
 
-\newpage
-
-\section{Appendix}
-
-\wss{Your report may require an appendix.  For instance, this is a good point to
-show the values of the symbolic parameters introduced in the report.}
-
-\subsection{Symbolic Parameters}
-
-\wss{The definition of the requirements will likely call for SYMBOLIC\_CONSTANTS.
-Their values are defined in this section for easy maintenance.}
 
 \end{document}
