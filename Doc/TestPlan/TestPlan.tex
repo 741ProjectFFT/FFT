@@ -96,9 +96,9 @@ Test coverage analysis will be carried out to measure code coverage.\\
 
 \subsection{Verification Tools}
 \begin{enumerate}
-\item {{\large Unittest} as unit testing framework}
+\item {{\large Cutest} as unit testing framework}
 \item {{\large Make} as script to call test cases}
-\item {{\large Coverage.py} as coverage analysis tool}
+\item {{\large Xcover} as coverage analysis tool}
 \end{enumerate}
 \wss{Thoughts on what tools to use, such as the following: unit testing
   framework, valgrind, static analyzer, make, continuous integration, test
@@ -109,7 +109,7 @@ Test coverage analysis will be carried out to measure code coverage.\\
 % See Gantt Chart at the following url ...
 
 \subsection{Non-Testing Based Verification}
-
+Not applicable.
 \wss{List any approaches like code inspection, code walkthrough, symbolic
   execution etc.  Enter not applicable if that is the case.}
 
@@ -119,40 +119,83 @@ Test coverage analysis will be carried out to measure code coverage.\\
 
 \subsubsection{Area of Testing1}
 		
-\paragraph{Title for Test}
+\paragraph{Calculation Test}
 
 \begin{enumerate}
 
-\item{test-id1\\}
+\item{Radix-2 Complex Number FFT And IFFT Calculation Function\\}
 
-Type: Functional, Dynamic, Manual, Static etc.
+\textbf {Type}: Functional, Dynamic, Automated, Manual
 					
-Initial State: 
+\textbf {Initial State}: None
 					
-Input: 
+\textbf {Input}: Test case file
 					
-Output: 
+\textbf {Output}:  File with output data
 					
-How test will be performed: 
+\textbf {How test will be performed}: \\
+This test would be mostly done automatedly by using "Make". But after getting the output datas, the datas should be compared with results from other FFT libraries manually.
+And for validation purpose, datas should also be compared with results from normal DFT calculations manually.
 					
-\item{test-id2\\}
+\item{Radix-3 Complex Number FFT And IFFT Calculation Function\\}
 
-Type: Functional, Dynamic, Manual, Static etc.
+\textbf {Type}: Functional, Dynamic, Automated, Manual
 					
-Initial State: 
+\textbf {Initial State}: None
 					
-Input: 
+\textbf {Input}: Test case file
 					
-Output: 
+\textbf {Output}:  File with output data
 					
-How test will be performed: 
+\textbf {How test will be performed}: \\
+Same as above.
+
+\item{Radix-2 Real Number FFT And IFFT Calculation Function\\}
+
+\textbf {Type}: Functional, Dynamic, Automated, Manual
+					
+\textbf {Initial State}: None
+					
+\textbf {Input}: Test case file
+					
+\textbf {Output}:  File with output data
+					
+\textbf {How test will be performed}: \\
+Same as above.
+
+\item{Radix-3 Real Number FFT And IFFT Calculation Function\\}
+
+\textbf {Type}: Functional, Dynamic, Automated, Manual
+					
+\textbf {Initial State}: None
+					
+\textbf {Input}: Test case file
+					
+\textbf {Output}:  File with output data
+					
+\textbf {How test will be performed}: \\
+Same as above.
+
 
 \end{enumerate}
 
 \subsubsection{Area of Testing2}
+\paragraph{Library Function Calling Test}
 
-...
+\begin{enumerate}
+\item{Loading library Under Different Versions Of Compilers of Different Languages\\}
 
+\textbf {Type}: Functional, Dynamic, Manual
+					
+\textbf {Initial State}: None
+					
+\textbf {Input}: Test case file
+					
+\textbf {Output}:  File with output data
+					
+\textbf {How test will be performed}: \\
+
+\end{enumerate} 
 \subsection{Tests for Nonfunctional Requirements}
 
 \subsubsection{Area of Testing1}
@@ -161,17 +204,19 @@ How test will be performed:
 
 \begin{enumerate}
 
-\item{test-id1\\}
+\item{Loading library Under Different Versions Of Compilers of Different Language\\}
 
-Type: 
+\textbf {Type}: Functional, Dynamic, Manual
 					
-Initial State: 
+\textbf {Initial State}: None
 					
-Input/Condition: 
+\textbf {Input}: Test case file
 					
-Output/Result: 
+\textbf {Output}:  File with output data
 					
-How test will be performed: 
+\textbf {How test will be performed}: \\
+This test would be done manually because 
+
 					
 \item{test-id2\\}
 
