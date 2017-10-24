@@ -131,6 +131,13 @@ description of the unit and the SI name.
   %	\caption{Provide a caption}
 %\end{table}
 
+  \wss{For an FFT library, you don't really need many units.  You don't know if your
+    ``signal'' for the FFT is a voltage, or a current, or stock prices, or
+    concentration of CO$_2$ in the atmosphere.  The user of the library will be
+    responsible for knowing the meaning of the input.  My initial thinking is
+    that the only unit that makes sense for all potential applications is your
+    units for frequency.}
+
 \subsection{Table of Symbols}
 
 The table that follows summarizes the symbols used in this document along with
@@ -150,6 +157,7 @@ $b_n$ &none &coefficient of complex number
 \bottomrule
 \end{longtable*}
 
+\wss{You do not have all of your symbols in this list.}
 
 \subsection{Abbreviations and Acronyms}
 
@@ -176,6 +184,9 @@ $b_n$ &none &coefficient of complex number
 
 Fast Fourier transforms are widely used for many applications in engineering, science, and mathematics. FFT's importance derives from the fact that in signal processing and image processing it has made working in frequency domain equally computationally feasible as working in temporal or spatial domain. \\
 
+\wss{The text is better for version control, and for reading in other editors,
+  if you use a hard-wrap at 80 characters}
+
 The following section provides an overview of the Software Requirements
 Specification (SRS) for a FFT Library.  The
 developed program will be referred to as Fast Fourier Transform Library
@@ -189,20 +200,25 @@ This document will be  used as a starting point for subsequent development phase
 The design document will show how the requirements are to be realized, including decisions on the numerical algorithms and programming environment.
 The verification and validation plan will show the steps that will be used to increase confidence in the software documentation and the implementation.
 
-
 \subsection{Scope of the Family} 
 
-The scope of the requirements includes specifing the input data, specifying the number of radix of FFT. Given the full information of input and parameters, the FFT Library will
-take advantage of FFT algorithms to do DFT or IDFT calcualtion effectively.
-
+The scope of the requirements includes specifing \wss{spell check!} the input
+data, specifying the number of radix of FFT. Given the full information of input
+and parameters, the FFT Library will take advantage of FFT algorithms to do DFT
+or IDFT calcualtion \wss{spell check!} effectively.
 
 \subsection{Characteristics of Intended Reader} 
 
-Reviewers of this documentation should have a  strong knowledge in Complex Variables Functions as well as have an understanding of differential equaltions. 
+Reviewers of this documentation should have a strong knowledge in Complex
+Variables Functions as well as have an understanding of differential
+equaltions. \wss{spell check!} \wss{For the characteristics of intended reader
+  try to be more specific about the education.  What degree?  What course areas?
+  What level?}
 
 \subsection{Organization of Document}
 The organization of this document follows the template for an SRS for scientific
-computing software proposed by~\cite{Koothoor2013} and \cite{SmithAndLai2005}.
+computing software proposed by~\cite{Koothoor2013} \wss{missing citation in your
+  bib file} and \cite{SmithAndLai2005}.
 The presentation follows the standard pattern of presenting goals, theories,
 definitions, and assumptions.  For readers that would like a more bottom up
 approach, they can start reading the instance models in Section
@@ -217,11 +233,13 @@ describes the potential user characteristics and lists the potential system
 constraints.
 
 \subsection{Potential System Contexts}
+
 Figure~\ref{Fig_SystemContext} shows the system context.  A circle represents an
 external entity outside the software, the user in this case.  A rectangle
 represents the software system itself (\famname{}).  Arrows are used to show the data
-flow between the system and its environment.\\
+flow between the system and its environment.
 
+\wss{You should clarify that the user could be a program that is using your library.}
 
 \begin{figure}[h!]
 \begin{center}
@@ -255,16 +273,14 @@ There is no system constraints.
 
 \section{Commonalities}
 
-\subsection{Background Overview} \label{Sec_Background}
-An FFT calculation can rapidly computes DFT by factorizing the DFT matrix into a product of
-sparse factors. As a result, it manages to reduce the complexity of computing
-the DFT from$\mathcal{O}(\log{}n^2)$, which arises if one simple applies the
-definition of
-DFT, to$\mathcal{O}(n\log{}n)$ , where $\mathcal{}n$ is the data size. Because
-of this
-algorithm decreasing the amount of calculation incredibly so that the FFT is
-widely used in the digital signal processing, fast discrete Hartley
-transform.
+\subsection{Background Overview} \label{Sec_Background} An FFT calculation can
+rapidly computes DFT by factorizing the DFT matrix into a product of sparse
+factors. As a result, it manages to reduce the complexity of computing the DFT
+from$\mathcal{O}(\log{}n^2)$, \wss{spaces before in-line equations} which arises
+if one simple applies the definition of DFT, to$\mathcal{O}(n\log{}n)$ , where
+$\mathcal{}n$ is the data size. Because of this algorithm decreasing the amount
+of calculation incredibly so that the FFT is widely used in the digital signal
+processing, fast discrete Hartley transform.
 
 \subsection{Terminology and  Definitions}
 
@@ -273,11 +289,14 @@ sections and their meaning, with the purpose of reducing ambiguity and making it
 easier to correctly understand the requirements:
 
 \begin{itemize}
-\item Disceret Fourier Transform(DFT): A transform method to convert a signal from its original domain (often time or space) to a representation in the frequency domain.
+\item Disceret \wss{spell check} Fourier Transform(DFT): \wss{space before
+    opening bracket} A transform method to convert a signal from its original
+  domain (often time or space) to a representation in the frequency domain.
 \end{itemize}
 
 \begin{itemize}
-\item Inverse Disceret Fourier Transform(IDFT): A inverse transform method of DFT. 
+\item Inverse Disceret Fourier Transform(IDFT): \wss{space before opening
+    bracket} A inverse transform method of DFT. 
 \end{itemize}
 
 \begin{itemize}
@@ -302,9 +321,10 @@ models. The dimension of each quantity is also given.
 \rowcolor[gray]{0.9}
 Number& DD\refstepcounter{datadefnum}\thedatadefnum \label{D_SRE}\\
 \hline
-Label& \bf A symbol represents ${e}^{-2\pi i/N}$ \\
+Label& \bf A symbol represents ${e}^{-2\pi i/N}$ \wss{This symbol is sometimes
+       called the Twiddle Factor, which would be a better label.}\\
 \hline
-Symbol & ${W}_N$\\
+Symbol & ${W}_N$ \wss{This should be $\omega_n$} \\
 \hline
 % Units& $Mt^{-3}$\\
 % \hline
@@ -316,7 +336,7 @@ Symbol & ${W}_N$\\
                 ${W}_N$ is a simpler term to represent $ {e}^{-2\pi i/N} $ and N is the data size. Readers can analyse complex-structure equations more directly and focus more on transformation process.
   \\
   \hline
-  Sources& Commently Admitted \\
+  Sources& Commently Admitted \wss{???}\\
   \hline
   Ref.\ By & \iref{I_R2C}, \iref{I_R3C}\\
   \hline
@@ -345,7 +365,11 @@ Symbol & ${X}[k]$\\
   Equation& ${X}[k] = {X}[0] + {X}[1] + {X}[2] + ..., (k = 0, 1, 2, 3...)$\\
   \hline
   Description & 
- Power spectral density (PSD) shows the strength of the variations(energy) as a function of frequency. In other words, it shows at which frequencies variations are strong and at which frequencies variations are weak.
+                Power spectral density (PSD) shows the strength of the variations(energy)
+                \wss{leave spaces between words and brackets} as a function of
+                frequency. In other words, it shows at which frequencies
+                variations are strong and at which frequencies variations are
+                weak.
   \\
   \hline
   Sources& \url{ http://www.cygres.com/OcnPageE/Glosry/SpecE.html }\\
@@ -461,9 +485,16 @@ The even term set of the complete PSD but keeping the same physical meaning as P
 \item[GS\refstepcounter{goalnum}\thegoalnum \label{G_meaningfulLabel}:]Complete radix-2 FFT and IFFT when input is real data.
 \item[GS\refstepcounter{goalnum}\thegoalnum \label{G_meaningfulLabel}:]Complete radix-2 FFT and IFFT when input is complex data.
 \item[GS\refstepcounter{goalnum}\thegoalnum \label{G_meaningfulLabel}:]Complete radix-3 FFT and IFFT when input is real data.
-\item[GS\refstepcounter{goalnum}\thegoalnum \label{G_meaningfulLabel}:]Complete radix-3 FFT  and IFFTwhen input is complex data.
+\item[GS\refstepcounter{goalnum}\thegoalnum \label{G_meaningfulLabel}:]Complete
+  radix-3 FFT and IFFTwhen \wss{proof read -- there are many instance of this
+    document where spaces are missing} input is complex data.
 
 \end{itemize}
+
+\wss{Rather than have 4 goals, I think you have one goal.  Part of the ``input''
+  is the desired algorithm.  You could add something like the following to the  introductory
+  sentence: ``... the type of data (real or complex), and the desired algorithm
+  (radix-2 or radix-3)...''}
 
 \subsection{Theoretical Models} \label{sec_theoretical}
 
@@ -485,7 +516,16 @@ on.
   Equation & ${X}[k]$ = $\sum\limits_{n=0}^{N-1} x(n)$ $ {e}^{-2\pi ni/N} $ \\
   \hline
   Description & 
-                The above equation is the defination of Discrete Fourier Transform, which transforms a sequence of N complex numbers ${x}(0)$,  ${x}(1)$,  ${x}(2)$,  ${x}(3)$... into another sequence of complex numbers,  ${X}[0]$,  ${X}[1]$,  ${X}[2]$,  ${X}[3]$,  ${X}[4]$...In the equation, ${x}(n)$ is amplitude in time domain and  ${e}^{-2\pi i/N}$  is an important term in DFT algorithm.\\
+                The above equation is the defination \wss{spell check!} of
+                Discrete Fourier Transform, which transforms a sequence of N
+                complex numbers ${x}(0)$,  ${x}(1)$,  ${x}(2)$,
+                ${x}(3)$... into another sequence of complex numbers,  ${X}[0]$,
+                ${X}[1]$,  ${X}[2]$,  ${X}[3]$,  ${X}[4]$...In the equation,
+                ${x}(n)$ is amplitude in time domain and  ${e}^{-2\pi i/N}$  is
+                an important term in DFT algorithm. \wss{Reference  your data
+                definition (DD1) explicitly.}  \wss{Is there a difference here
+                between round and square brackets for indexing your sequence?
+                I don't think there is, so you should just use one notation.}\\
   \hline
   Source &
            \url  {https://en.wikipedia.org/wiki/Discrete_Fourier_transform}\\
@@ -511,7 +551,15 @@ on.
   Equation&  ${x}(n)$ = $\frac{1}{N}$ $\sum\limits_{n=0}^{N-1} X[k]$ $ {e}^{2\pi ni/N} $\\
   \hline
   Description & 
-                The above equation is the defination of Inverse Discrete Fourier Transform, which transforms a sequence of N complex numbers ${X}[0]$,  ${X}[1]$,  ${X}[2]$,  ${X}[3]$,  ${X}[4]$... into another sequence of complex numbers, ${x}(0)$,  ${x}(1)$,  ${x}(2)$,  ${x}(3)$...In the equation, ${X}[k]$ is amplitude in time domain and  ${e}^{-2\pi i/N}$  is an important term in IDFT algorithm, while N is the length of sequence.\\
+                The above equation is the defination \wss{I'm going to stop
+                marking spelling mistakes} of Inverse Discrete Fourier
+                Transform, which transforms a sequence of N complex numbers
+                ${X}[0]$,  ${X}[1]$,  ${X}[2]$,  ${X}[3]$,  ${X}[4]$... into
+                another sequence of complex numbers, ${x}(0)$,  ${x}(1)$,
+                ${x}(2)$,  ${x}(3)$...In the equation, ${X}[k]$ is amplitude in
+                time domain and  ${e}^{-2\pi i/N}$  is an important term in IDFT
+                algorithm, while N is the length of sequence.  \wss{Why don't
+                you reference your twiddle factor in DD1?}\\
   \hline
   Source &
           \url  {https://en.wikipedia.org/wiki/Discrete_Fourier_transform}\\
@@ -538,7 +586,13 @@ on.
   Equation& ${e}^{ix}$ = $cosx$ + $isinx$\\
   \hline
   Description & 
-Euler's formula, named after Leonhard Euler, is a mathematical formula in complex analysis that establishes the fundamental relationship between the trigonometric functions and the complex exponential function. ${e}$ is the base of the natural logarithm, i is the imaginary unit, and cos and sin are the trigonometric functions cosine and sine respectively, with the argument x given in radians. \\
+Euler's formula, named after Leonhard Euler, is a mathematical formula in
+                complex analysis that establishes the fundamental relationship
+                between the trigonometric functions and the complex exponential
+                function. ${e}$ is the base of the natural logarithm, i is the
+                imaginary unit, and cos and sin are the trigonometric functions
+                cosine and sine respectively, with the argument x \wss{You
+                should put this in the mathematical font $x$} given in radians. \\
   \hline
   Source &
           \url {https://en.wikipedia.org/wiki/Euler%27s_formula} \\
@@ -564,7 +618,10 @@ Euler's formula, named after Leonhard Euler, is a mathematical formula in comple
   Equation& $W_N^{kn}$ =  $W_N^{k(n+N)}$\\
   \hline
   Description & 
- $W_N^{kn}$ is a periodic function and the period is N. Using Euler's Formula can prove this.
+ $W_N^{kn}$ is a periodic function and the period is N. Using Euler's Formula
+                can prove this. \wss{It feels like you are padding your list of
+                theoretical models.  Unless you reference the model somewhere,
+                you aren't really using it.}
 \\
   \hline
   Source &
@@ -630,7 +687,7 @@ a is a coefficient. This transform is frequently used in FFT algorithms.
 &N is the size of data.\\
 &r is the radix.\\
   \hline
-  Sources&~\cite{Lightstone2012} \ \\
+  Sources&~\cite{Lightstone2012} \wss{This citation is not related to this topic.} \\
   \hline
   Ref.\ By & -\\
   \hline
@@ -651,7 +708,8 @@ X[k] &= \sum\limits_{r=0}^{N/2 -1}x(2r)W_{N}^{2kr} + \sum\limits_{r=0}^{N/2 -1}x
 & =  \sum\limits_{r=0}^{N/2 -1}x(2r)(W_{N}^{2})^{kr} + W_{N}^{k}\sum\limits_{r=0}^{N/2 -1}x(2r+1)(W_{N}^{2})^{kr}\\
 \end{align*}
 
-According to Eular's Formula, $W_{N}^{a}$ = $W_{N/a}$,\\
+According to Eular's Formula, $W_{N}^{a}$ = $W_{N/a}$,\\ \wss{Reference the
+  corresponding conceptual chunk.}
 
 \begin{align*}
 X[k] & =  \sum\limits_{r=0}^{N/2 -1}x(2r)(W_{N}^{2})^{kr} + W_{N}^{k}\sum\limits_{r=0}^{N/2 -1}x(2r+1)(W_{N}^{2})^{kr}\\
@@ -779,7 +837,8 @@ The length of input sequence is known [\iref{I_R2C}, \iref{I_R3C}].
 \end{itemize}
 
 \subsection{Calculation} \label{sec_Calculation}
-Not Applicable.
+Not Applicable. \wss{Your calculation variabilities are the choices between the
+  different algorithms.}
 \subsection{Output} \label{sec_Output}    
 Not Applicable.
 
@@ -844,10 +903,14 @@ definitions, and instance models with each other.
 \label{Table:trace}
 \end{table}
 
-The purpose of the traceability graphs is also to provide easy references on what has to be additionally modified if a certain component is changed.  The arrows in the graphs represent dependencies. The component at the tail of an arrow is depended on by the component at the head of that arrow. Therefore, if a component is changed, the components that it points to should also be changed.\par
-NOTE: Building a tool to automatically generate the graphical 
-representation of the matrix by scanning the labels and reference can be 
-future work.
+The purpose of the traceability graphs is also to provide easy references on
+what has to be additionally modified if a certain component is changed.  The
+arrows in the graphs represent dependencies. The component at the tail of an
+arrow is depended on by the component at the head of that arrow. Therefore, if a
+component is changed, the components that it points to should also be
+changed.\par
+NOTE: Building a tool to automatically generate the graphical representation of
+the matrix by scanning the labels and reference can be future work.
 
 
 \newpage
