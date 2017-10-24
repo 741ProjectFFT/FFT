@@ -3,6 +3,23 @@
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{amsmath, mathtools}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{colortbl}
+\usepackage{xr}
+\usepackage{hyperref}
+\usepackage{longtable}
+\usepackage{xfrac}
+\usepackage{tabularx}
+\usepackage{float}
+\usepackage{siunitx}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{pdflscape}
+\usepackage{afterpage}
 \hypersetup{
     colorlinks,
     citecolor=black,
@@ -47,8 +64,6 @@ Date 2 & 1.1 & Notes\\
   \bottomrule
 \end{tabular}\\
 
-\wss{symbols, abbreviations or acronyms -- you can reference the SRS tables if needed}
-
 \newpage
 
 \tableofcontents
@@ -61,7 +76,6 @@ Date 2 & 1.1 & Notes\\
 
 \pagenumbering{arabic}
 
-This document ...
 
 \section{General Information}
 The following section provides an overview of the Verification and Validation (V \& V) Plan for a FFT library.
@@ -124,21 +138,56 @@ Because FFT library is based on a mathematical expression. Using Symbolic Execut
 
 \item{Radix-2 Complex Number FFT Calculation Function\\}
 
-\textbf {Type}: Functional, Dynamic, Automated, Manual
+\textbf {Type}: Functional, Dynamic, Automated
 					
 \textbf {Initial State}: None
 					
-\textbf {Input}: input.txt, expectedOutput.txt
+\textbf {Input}:\\ input.txt :  Includes all the input datas. Two exmples of input.txt is shown in Figure~\ref{Fig_Inputcomplex} and Figure~\ref{Fig_Inputfloating}.\\ 
+ expectedOutput.txt:  Includes the output datas using the same input datas but computed by Matlab FFT library. Then output.txts  are shown in Figure~\ref{Fig_Inputcomplex} and Figure~\ref{Fig_Inputfloating}. \\ 
+If the numbers of data can not satisfy $2^n$, program will automatically fill with 0.\\
 					
-\textbf {Output}:  output.txt, TestResult: pass or not pass
-					
+\textbf {Output}:  output.txt : Includes the output datas using the input data computed by this FFT library.\\
+TestResult: pass or not pass. Whether the program passed the test is measured by an admissible error and the algorithm for the admissible erro is provided as below:\\
+
+
+
+\begin{figure}[h!]
+\centering
+\begin{minipage}[b]{0.4\textwidth}
+ \includegraphics[width=\textwidth]{Input_complex}
+\caption{System Context}
+\label{Fig_Inputcomplex} 
+\end{minipage}
+\hfill
+\begin{minipage}[b]{0.31\textwidth}
+ \includegraphics[width=\textwidth]{Input_floating}
+\caption{System Context}
+\label{Fig_Inputfloating} 
+\end{minipage}
+\end{figure}
+		
+\begin{figure}[h!]
+\centering
+\begin{minipage}[b]{0.4\textwidth}
+ \includegraphics[width=\textwidth]{Input_complex}
+\caption{System Context}
+\label{Fig_Inputcomplex} 
+\end{minipage}
+\hfill
+\begin{minipage}[b]{0.31\textwidth}
+ \includegraphics[width=\textwidth]{Input_floating}
+\caption{System Context}
+\label{Fig_Inputfloating} 
+\end{minipage}
+\end{figure}
+			
 \textbf {How test will be performed}: \\
 Automated.
 For validation purpose, datas should also be compared with results from normal DFT calculations manually.
 
 \item{Radix-2 Complex Number IFFT Calculation Function\\}
 
-\textbf {Type}: Functional, Dynamic, Automated, Manual
+\textbf {Type}: Functional, Dynamic, Automated
 					
 \textbf {Initial State}: None
 					
@@ -157,7 +206,7 @@ Same as above.
 
 \item{Radix-2 Real Number FFT Calculation Function\\}
 
-\textbf {Type}: Functional, Dynamic, Automated, Manual
+\textbf {Type}: Functional, Dynamic, Automated
 					
 \textbf {Initial State}: None
 					
@@ -170,7 +219,7 @@ Same as above.
 
 \item{Radix-2 Real Number IFFT Calculation Function\\}
 
-\textbf {Type}: Functional, Dynamic, Automated, Manual
+\textbf {Type}: Functional, Dynamic, Automated
 					
 \textbf {Initial State}: None
 					
@@ -188,8 +237,8 @@ Same as above.
 
 \item{Radix-3 Complex Number FFT Calculation Function\\}
 
-\textbf {Type}: Functional, Dynamic, Automated, Manual
-					
+\textbf {Type}: Functional, Dynamic, Automated
+
 \textbf {Initial State}: None
 					
 \textbf {Input}: input.txt, expectedOutput.txt
@@ -201,7 +250,7 @@ Same as above.
 
 \item{Radix-3 Complex Number IFFT Calculation Function\\}
 
-\textbf {Type}: Functional, Dynamic, Automated, Manual
+\textbf {Type}: Functional, Dynamic, Automated
 					
 \textbf {Initial State}: None
 					
@@ -219,7 +268,7 @@ Same as above.
 
 \item{Radix-3 Real Number FFT Calculation Function\\}
 
-\textbf {Type}: Functional, Dynamic, Automated, Manual
+\textbf {Type}: Functional, Dynamic, Automated
 					
 \textbf {Initial State}: None
 					
@@ -232,7 +281,7 @@ Same as above.
 
 \item{Radix-3 Real Number IFFT Calculation Function\\}
 
-\textbf {Type}: Functional, Dynamic, Automated, Manual
+\textbf {Type}: Functional, Dynamic, Automated
 					
 \textbf {Initial State}: None
 					
