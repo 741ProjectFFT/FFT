@@ -485,7 +485,7 @@ T-5, T-6, T-7, T-8 all relevant to IM2 in CA.\\
 
 \begin{enumerate}
 
-\item{\textbf{T-\refstepcounter{tnum}\thetnum \label{CCC}: Complex Number Calculation Check}}
+\item{\textbf{T-\refstepcounter{tnum}\thetnum \label{CCC}: Complex Number Multiplication Check}}
 
 \textbf {Type}: Functional, Dynamic
 					
@@ -497,6 +497,18 @@ T-5, T-6, T-7, T-8 all relevant to IM2 in CA.\\
 					
 \textbf {How test will be performed}: Automated Unit Test
 
+\item{\textbf{T-\refstepcounter{tnum}\thetnum \label{CCA}: complex number Addition Check}}
+
+\textbf {Type}: Functional, Dynamic
+					
+\textbf {Initial State}: None
+					
+\textbf {Input}:(1 + 2i) + (2 + 3i)
+					
+\textbf {Output}: (3 + 5i)
+					
+\textbf {How test will be performed}:  Automated Unit Test
+
 
 \item{\textbf{T-\refstepcounter{tnum}\thetnum \label{FZ}: $e^{\frac{-2\pi ki}{N}}$ Calculation Check}}
 
@@ -507,6 +519,37 @@ T-5, T-6, T-7, T-8 all relevant to IM2 in CA.\\
 \textbf {Input}: k = 1, N =4
 					
 \textbf {Output}: -i
+					
+\textbf {How test will be performed}:  Automated Unit Test
+
+\end{enumerate}	
+
+\subsection{Partition Test}
+
+\begin{enumerate}
+
+\item{\textbf{T-\refstepcounter{tnum}\thetnum \label{R2P}:Radix-2 Partition check}}
+
+\textbf {Type}: Functional, Dynamic
+					
+\textbf {Initial State}: None
+					
+\textbf {Input}: [0, 1, 2, 3, 4, 5, 6, 7] means [$x_0$, $x_1$, $x_2$, $x_3$, $x_4$, $x_5$, $x_6$, $x_7$]
+					
+\textbf {Output}: [0, 4, 2, 6, 1, 5, 3,7] means [$x_0$, $x_4$, $x_2$, $x_6$, $x_1$, $x_5$, $x_3$, $x_7$]
+					
+\textbf {How test will be performed}: Automated Unit Test
+
+
+\item{\textbf{T-\refstepcounter{tnum}\thetnum \label{R3P}: Radix-2 Partition check}}
+
+\textbf {Type}: Functional, Dynamic
+					
+\textbf {Initial State}: None
+					
+\textbf {Input}: [0, 1, 2, 3, 4, 5, 6, 7, 8] means [$x_0$, $x_1$, $x_2$, $x_3$, $x_4$, $x_5$, $x_6$, $x_7$, $x_8$]
+					
+\textbf {Output}: [0, 3, 6, 1, 4, 7, 2, 5, 8] means [$x_0$, $x_3$, $x_6$, $x_1$, $x_4$, $x_7$, $x_2$, $x_5$, $x_8$]
 					
 \textbf {How test will be performed}:  Automated Unit Test
 
