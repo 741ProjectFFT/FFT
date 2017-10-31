@@ -15,7 +15,8 @@
     linkcolor=red,
     urlcolor=blue
 }
-\usepackage[round]{natbib}
+
+\input{../../Comments}
 
 \newcounter{acnum}
 \newcommand{\actheacnum}{AC\theacnum}
@@ -29,29 +30,18 @@
 \newcommand{\mthemnum}{M\themnum}
 \newcommand{\mref}[1]{M\ref{#1}}
 
-\title{SE 3XA3: Software Requirements Specification\\Title of Project}
-
-\author{Team \#, Team Name
-		\\ Student 1 name and macid
-		\\ Student 2 name and macid
-		\\ Student 3 name and macid
-}
-
-\date{\today}
-
-\input{../../Comments}
-
 \begin{document}
+
+\title{Module Guide: FFT Library} 
+\author{Yuzhi Zhao }
+\date{\today}
 
 \maketitle
 
 \pagenumbering{roman}
-\tableofcontents
-\listoftables
-\listoffigures
 
-\begin{table}[bp]
-\caption{\bf Revision History}
+\section{Revision History}
+
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
@@ -59,7 +49,14 @@ Date 1 & 1.0 & Notes\\
 Date 2 & 1.1 & Notes\\
 \bottomrule
 \end{tabularx}
-\end{table}
+
+\newpage
+
+\tableofcontents
+
+\listoftables
+
+\listoffigures
 
 \newpage
 
@@ -132,11 +129,13 @@ adapted here is called design for
 change.
 
 \begin{description}
-\item[\refstepcounter{acnum} \actheacnum \label{acHardware}:] The specific
-  hardware on which the software is running.
 \item[\refstepcounter{acnum} \actheacnum \label{acInput}:] The format of the
   initial input data.
-\item ...
+\item[\refstepcounter{acnum} \actheacnum \label{acInputPara}:] The format of the input parameters.
+\item[\refstepcounter{acnum} \actheacnum \label{acInputcons}:] The constraints on the input parameters.
+\item[\refstepcounter{acnum} \actheacnum \label{acOutput}:] The formate of the final output data.
+\item[\refstepcounter{acnum} \actheacnum \label{acAlgorithm}:] The algorithms for computing FFT.
+\item[\refstepcounter{acnum} \actheacnum \label{acDataStructure}:] The implementation for the array data structure.
 \end{description}
 
 \subsection{Unlikely Changes} \label{SecUchange}
@@ -153,7 +152,8 @@ decisions will be changed.
   (Input: File and/or Keyboard, Output: File, Memory, and/or Screen).
 \item[\refstepcounter{ucnum} \uctheucnum \label{ucInput}:] There will always be
   a source of input data external to the software.
-\item ...
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucGoal}:] The goal of the library is to do FFT calculation. 
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucInputFormat}:] Whatever the input format is, they are all eventually transferred to datas to be computed.
 \end{description}
 
 \section{Module Hierarchy} \label{SecMH}
@@ -164,8 +164,16 @@ below, which are leaves in the hierarchy tree, are the modules that will
 actually be implemented.
 
 \begin{description}
+
 \item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Hardware-Hiding Module
-\item ...
+\item [\refstepcounter{mnum} \mthemnum \label{mInput}:] Input Format Module
+\item [\refstepcounter{mnum} \mthemnum \label{mParams}:] Input Parameters Module
+\item [\refstepcounter{mnum} \mthemnum \label{mVerify}:] Input Verification Module
+\item [\refstepcounter{mnum} \mthemnum \label{mOutput}:] Output Format Module
+\item [\refstepcounter{mnum} \mthemnum \label{mVerifyOut}:] Output Verification Module
+\item [\refstepcounter{mnum} \mthemnum \label{FFTcal}:] FFT Calculation Module
+\item [\refstepcounter{mnum} \mthemnum \label{mControl}:] Control Module
+\item [\refstepcounter{mnum} \mthemnum \label{mSeqDS}:] Sequence Data Structure Module
 \end{description}
 
 
@@ -179,19 +187,18 @@ actually be implemented.
 {Hardware-Hiding Module} & ~ \\
 \midrule
 
-\multirow{7}{0.3\textwidth}{Behaviour-Hiding Module} & ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\ 
-& ?\\
+\multirow{7}{0.3\textwidth}{Behaviour-Hiding Module}
+& Input Parameters Module\\
+& Input Verification Module\\
+& Output Format Module\\
+& Output Verification Module\\
+& Temperature ODEs Module\\
+& Energy Equations Module\\ 
+& Control Module\\
 \midrule
 
-\multirow{3}{0.3\textwidth}{Software Decision Module} & {?}\\
-& ?\\
-& ?\\
+\multirow{3}{0.3\textwidth}{Software Decision Module}\\
+& FFT Calculation Module\\
 \bottomrule
 
 \end{tabular}
@@ -239,10 +246,10 @@ selected.
 \begin{description}
 \item[Secrets:]The contents of the required behaviours.
 \item[Services:]Includes programs that provide externally visible behaviour of
-  the system as specified in the software requirements specification (SRS)
+  the system as specified in the software requirements commonality analysis (CA)
   documents. This module serves as a communication layer between the
   hardware-hiding module and the software decision module. The programs in this
-  module will need to change if there are changes in the SRS.
+  module will need to change if there are changes in the CA.
 \item[Implemented By:] --
 \end{description}
 
@@ -252,18 +259,65 @@ selected.
 \item[Secrets:]The format and structure of the input data.
 \item[Services:]Converts the input data into the data structure used by the
   input parameters module.
-\item[Implemented By:] [Your Program Name Here]
+\item[Implemented By:] FFTL
 \end{description}
 
-\subsubsection{Etc.}
+\subsubsection{Input Parameters Module (\mref{mParams})}
 
+\begin{description}
+\item[Secrets:]The format and structure of the input parameters.
+\item[Services:]Stores the parameters needed for the program, including data types, radix information, and numerical parameters.  The values can be
+  read as needed.  This module knows how many parameters it stores.
+\item[Implemented By:] FFTL
+\end{description}
+
+\subsubsection{Input Verification Module (\mref{mVerify})}
+
+\begin{description}
+\item[Secrets:] The format and structure of the software constraints.
+\item[Services:] Verifies that the input parameters comply with software
+  constraints. Throws an error if a parameter violates the constraint. Throws a warning if a parameter violates a software constraint.
+\item[Implemented By:] FFTL
+\end{description}
+
+\subsubsection{Output Format Module (\mref{mOutput})}
+
+\begin{description}
+\item[Secrets:] The format and structure of the output data.
+\item[Services:] Outputs the results of the calculations, include the results of FFT based on the input datas.
+\item[Implemented By:] FFTL
+\end{description} 
+
+\subsubsection{Output Verification Module (\mref{mVerifyOut})}
+
+\begin{description}
+\item[Secrets:] The algorithm used to approximate expected results.
+\item[Services:] Verifies that the output results follow the FFT calculation algorithm. Throws a warning if the output data number not equals the input data number.
+\item[Implemented By:] FFTL
+\end{description}
+
+\subsubsection{FFT Calculation Module (\mref{FFTcal})}
+
+\begin{description}
+\item[Secrets:] The FFT calculation Algorithms to compute the output.
+\item[Services:] Calculate the output based on input parameters module.
+\item[Implemented By:] FFTL
+\end{description} 
+ 
+\subsubsection{Control Module (\mref{mControl})}
+
+\begin{description}
+\item[Secrets:] The algorithm for coordinating the running of the program.
+\item[Services:] Provides the main program.
+\item[Implemented By:] FFTL
+\end{description}
 
 \subsection{Software Decision Module}
 
 \begin{description}
 \item[Secrets:] The design decision based on mathematical theorems, physical
   facts, or programming considerations. The secrets of this module are
-  \emph{not} described in the SRS.
+  \emph{not} described in the CA.
 \item[Services:] Includes data structure and algorithms used in the system that
   do not provide direct interaction with the user. 
   % Changes in these modules are more likely to be motivated by a desire to
@@ -271,7 +325,15 @@ selected.
 \item[Implemented By:] --
 \end{description}
 
-\subsubsection{Etc.}
+\subsubsection{Sequence Data Structure Module (\mref{mSeqDS})}
+
+\begin{description}
+\item[Secrets:] The data structure for a sequence data type.
+\item[Services:] Provides array manipulation, including building an array,
+  accessing a specific entry, slicing an array, etc.
+\item[Implemented By:] C Programming Language
+\end{description}
+
 
 \section{Traceability Matrix} \label{SecTM}
 
@@ -286,20 +348,11 @@ requirements and between the modules and the anticipated changes.
 \toprule
 \textbf{Req.} & \textbf{Modules}\\
 \midrule
-R1 & \mref{mHH}, \mref{mInput}, \mref{mParams}, \mref{mControl}\\
-R2 & \mref{mInput}, \mref{mParams}\\
-R3 & \mref{mVerify}\\
-R4 & \mref{mOutput}, \mref{mControl}\\
-R5 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
-R6 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
-R7 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
-R8 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
-R9 & \mref{mVerifyOut}\\
-R10 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}\\
-R11 & \mref{mOutput}, \mref{mODEs}, \mref{mEnergy}, \mref{mControl}\\
+IM1 &\mref{mHH}, \mref{mInput}, \mref{mParams}, \mref{mVerify}, \mref{mOutput}, \mref{mVerifyOut},  \mref{FFTcal},  \mref{mControl},  \mref{mSeqDS}\\
+IM2 & \mref{mHH}, \mref{mInput}, \mref{mParams}, \mref{mVerify}, \mref{mOutput}, \mref{mVerifyOut},  \mref{FFTcal},  \mref{mControl},  \mref{mSeqDS}\\
 \bottomrule
 \end{tabular}
-\caption{Trace Between Requirements and Modules}
+\caption{Trace Between Instance Models and Modules}
 \label{TblRT}
 \end{table}
 
@@ -309,18 +362,12 @@ R11 & \mref{mOutput}, \mref{mODEs}, \mref{mEnergy}, \mref{mControl}\\
 \toprule
 \textbf{AC} & \textbf{Modules}\\
 \midrule
-\acref{acHardware} & \mref{mHH}\\
 \acref{acInput} & \mref{mInput}\\
-\acref{acParams} & \mref{mParams}\\
-\acref{acVerify} & \mref{mVerify}\\
+\acref{acInputPara} & \mref{mParams}\\
+\acref{acInputcons} & \mref{mVerify}\\
 \acref{acOutput} & \mref{mOutput}\\
-\acref{acVerifyOut} & \mref{mVerifyOut}\\
-\acref{acODEs} & \mref{mODEs}\\
-\acref{acEnergy} & \mref{mEnergy}\\
-\acref{acControl} & \mref{mControl}\\
-\acref{acSeqDS} & \mref{mSeqDS}\\
-\acref{acSolver} & \mref{mSolver}\\
-\acref{acPlot} & \mref{mPlot}\\
+\acref{acAlgorithm} & \mref{FFTcal}\\
+\acref{acDataStructure} & \mref{mSeqDS}\\
 \bottomrule
 \end{tabular}
 \caption{Trace Between Anticipated Changes and Modules}
@@ -342,7 +389,7 @@ because they use modules from the lower levels.
 
 \begin{figure}[H]
 \centering
-%\includegraphics[width=0.7\textwidth]{UsesHierarchy.png}
+\includegraphics[width=0.99\textwidth]{NewUsesHierarchy.png}
 \caption{Use hierarchy among modules}
 \label{FigUH}
 \end{figure}
