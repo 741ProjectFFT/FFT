@@ -129,8 +129,7 @@ adapted here is called design for
 change.
 
 \begin{description}
-\item[\refstepcounter{acnum} \actheacnum \label{acInput}:] The format of the
-  initial input data.
+\item[\refstepcounter{acnum} \actheacnum \label{acInput}:] The format of the initial input data.
 \item[\refstepcounter{acnum} \actheacnum \label{acInputPara}:] The format of the input parameters.
 \item[\refstepcounter{acnum} \actheacnum \label{acInputcons}:] The constraints on the input parameters.
 \item[\refstepcounter{acnum} \actheacnum \label{acOutput}:] The formate of the final output data.
@@ -148,8 +147,6 @@ will potentially need to be modified. Hence, it is not intended that these
 decisions will be changed.
 
 \begin{description}
-\item[\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] Input/Output devices
-  (Input: File and/or Keyboard, Output: File, Memory, and/or Screen).
 \item[\refstepcounter{ucnum} \uctheucnum \label{ucInput}:] There will always be
   a source of input data external to the software.
 \item[\refstepcounter{ucnum} \uctheucnum \label{ucGoal}:] The goal of the library is to do FFT calculation. 
@@ -166,14 +163,10 @@ actually be implemented.
 \begin{description}
 
 \item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Hardware-Hiding Module
-\item [\refstepcounter{mnum} \mthemnum \label{mInput}:] Input Format Module
-\item [\refstepcounter{mnum} \mthemnum \label{mParams}:] Input Parameters Module
-\item [\refstepcounter{mnum} \mthemnum \label{mVerify}:] Input Verification Module
-\item [\refstepcounter{mnum} \mthemnum \label{mOutput}:] Output Format Module
-\item [\refstepcounter{mnum} \mthemnum \label{mVerifyOut}:] Output Verification Module
+\item [\refstepcounter{mnum} \mthemnum \label{mInput}:] Input Module
+\item [\refstepcounter{mnum} \mthemnum \label{mOutput}:] Output  Module
 \item [\refstepcounter{mnum} \mthemnum \label{FFTcal}:] FFT Calculation Module
-\item [\refstepcounter{mnum} \mthemnum \label{mControl}:] Control Module
-\item [\refstepcounter{mnum} \mthemnum \label{mSeqDS}:] Sequence Data Structure Module
+\item [\refstepcounter{mnum} \mthemnum \label{mSeqDS}:] Array Data Structure Module
 \end{description}
 
 
@@ -187,18 +180,14 @@ actually be implemented.
 {Hardware-Hiding Module} & ~ \\
 \midrule
 
-\multirow{7}{0.3\textwidth}{Behaviour-Hiding Module}
-& Input Parameters Module\\
-& Input Verification Module\\
-& Output Format Module\\
-& Output Verification Module\\
-& Temperature ODEs Module\\
-& Energy Equations Module\\ 
-& Control Module\\
+\multirow{3}{0.3\textwidth}{Behaviour-Hiding Module}
+& Input  Module\\
+& FFT Calculation Module\\
+& Output  Module\\
 \midrule
 
 \multirow{3}{0.3\textwidth}{Software Decision Module}\\
-& FFT Calculation Module\\
+& Array Data Structure Module\\
 \bottomrule
 
 \end{tabular}
@@ -253,48 +242,23 @@ selected.
 \item[Implemented By:] --
 \end{description}
 
-\subsubsection{Input Format Module (\mref{mInput})}
+\subsubsection{Input Module (\mref{mInput})}
 
 \begin{description}
-\item[Secrets:]The format and structure of the input data.
-\item[Services:]Converts the input data into the data structure used by the
-  input parameters module.
+\item[Secrets:]The format and structure of the input data and software constraints.
+\item[Services:]Converts the input data into arrays and verifies that the input datas comply with software
+  constraints. Throws an error if input data violates the constraints. 
 \item[Implemented By:] FFTL
 \end{description}
 
-\subsubsection{Input Parameters Module (\mref{mParams})}
+
+\subsubsection{Output Module (\mref{mOutput})}
 
 \begin{description}
-\item[Secrets:]The format and structure of the input parameters.
-\item[Services:]Stores the parameters needed for the program, including data types, radix information, and numerical parameters.  The values can be
-  read as needed.  This module knows how many parameters it stores.
-\item[Implemented By:] FFTL
-\end{description}
-
-\subsubsection{Input Verification Module (\mref{mVerify})}
-
-\begin{description}
-\item[Secrets:] The format and structure of the software constraints.
-\item[Services:] Verifies that the input parameters comply with software
-  constraints. Throws an error if a parameter violates the constraint. Throws a warning if a parameter violates a software constraint.
-\item[Implemented By:] FFTL
-\end{description}
-
-\subsubsection{Output Format Module (\mref{mOutput})}
-
-\begin{description}
-\item[Secrets:] The format and structure of the output data.
-\item[Services:] Outputs the results of the calculations, include the results of FFT based on the input datas.
+\item[Secrets:] The format and structure of the output data and output constraints.
+\item[Services:] Outputs the results of the calculations, include the results of FFT based on the input datas. Verifies that the output results follow the FFT calculation algorithm. Throws a warning if the output data number not equals the input data number.
 \item[Implemented By:] FFTL
 \end{description} 
-
-\subsubsection{Output Verification Module (\mref{mVerifyOut})}
-
-\begin{description}
-\item[Secrets:] The algorithm used to approximate expected results.
-\item[Services:] Verifies that the output results follow the FFT calculation algorithm. Throws a warning if the output data number not equals the input data number.
-\item[Implemented By:] FFTL
-\end{description}
 
 \subsubsection{FFT Calculation Module (\mref{FFTcal})}
 
@@ -304,13 +268,6 @@ selected.
 \item[Implemented By:] FFTL
 \end{description} 
  
-\subsubsection{Control Module (\mref{mControl})}
-
-\begin{description}
-\item[Secrets:] The algorithm for coordinating the running of the program.
-\item[Services:] Provides the main program.
-\item[Implemented By:] FFTL
-\end{description}
 
 \subsection{Software Decision Module}
 
@@ -328,7 +285,7 @@ selected.
 \subsubsection{Sequence Data Structure Module (\mref{mSeqDS})}
 
 \begin{description}
-\item[Secrets:] The data structure for a sequence data type.
+\item[Secrets:] The data structure for an array data type.
 \item[Services:] Provides array manipulation, including building an array,
   accessing a specific entry, slicing an array, etc.
 \item[Implemented By:] C Programming Language
@@ -348,8 +305,8 @@ requirements and between the modules and the anticipated changes.
 \toprule
 \textbf{Req.} & \textbf{Modules}\\
 \midrule
-IM1 &\mref{mHH}, \mref{mInput}, \mref{mParams}, \mref{mVerify}, \mref{mOutput}, \mref{mVerifyOut},  \mref{FFTcal},  \mref{mControl},  \mref{mSeqDS}\\
-IM2 & \mref{mHH}, \mref{mInput}, \mref{mParams}, \mref{mVerify}, \mref{mOutput}, \mref{mVerifyOut},  \mref{FFTcal},  \mref{mControl},  \mref{mSeqDS}\\
+IM1 &\mref{mHH}, \mref{mInput}, \mref{mOutput},  \mref{FFTcal},  \mref{mSeqDS}\\
+IM2 & \mref{mHH}, \mref{mInput}, \mref{mOutput}, \mref{FFTcal}, \mref{mSeqDS}\\
 \bottomrule
 \end{tabular}
 \caption{Trace Between Instance Models and Modules}
@@ -363,8 +320,8 @@ IM2 & \mref{mHH}, \mref{mInput}, \mref{mParams}, \mref{mVerify}, \mref{mOutput},
 \textbf{AC} & \textbf{Modules}\\
 \midrule
 \acref{acInput} & \mref{mInput}\\
-\acref{acInputPara} & \mref{mParams}\\
-\acref{acInputcons} & \mref{mVerify}\\
+\acref{acInputPara} & \mref{mInput}\\
+\acref{acInputcons} & \mref{mInput}\\
 \acref{acOutput} & \mref{mOutput}\\
 \acref{acAlgorithm} & \mref{FFTcal}\\
 \acref{acDataStructure} & \mref{mSeqDS}\\
