@@ -163,8 +163,8 @@ actually be implemented.
 \begin{description}
 
 \item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Hardware-Hiding Module
-\item [\refstepcounter{mnum} \mthemnum \label{mInput}:] Input Module
-\item [\refstepcounter{mnum} \mthemnum \label{mOutput}:] Output  Module
+\item [\refstepcounter{mnum} \mthemnum \label{mInput}:] Input Computing Module
+\item [\refstepcounter{mnum} \mthemnum \label{mOutput}:] Output  Computing Module
 \item [\refstepcounter{mnum} \mthemnum \label{FFTcal}:] FFT Calculation Module
 \item [\refstepcounter{mnum} \mthemnum \label{mSeqDS}:] Array Data Structure Module
 \end{description}
@@ -181,9 +181,9 @@ actually be implemented.
 \midrule
 
 \multirow{3}{0.3\textwidth}{Behaviour-Hiding Module}
-& Input  Module\\
+& Input Computing Module\\
 & FFT Calculation Module\\
-& Output  Module\\
+& Output Computing Module\\
 \midrule
 
 \multirow{3}{0.3\textwidth}{Software Decision Module}\\
@@ -242,7 +242,7 @@ selected.
 \item[Implemented By:] --
 \end{description}
 
-\subsubsection{Input Module (\mref{mInput})}
+\subsubsection{Input Computing Module (\mref{mInput})}
 
 \begin{description}
 \item[Secrets:]The format and structure of the input data and software constraints.
@@ -252,11 +252,11 @@ selected.
 \end{description}
 
 
-\subsubsection{Output Module (\mref{mOutput})}
+\subsubsection{Output Computing Module (\mref{mOutput})}
 
 \begin{description}
 \item[Secrets:] The format and structure of the output data and output constraints.
-\item[Services:] Outputs the results of the calculations, include the results of FFT based on the input datas. Verifies that the output results follow the FFT calculation algorithm. Throws a warning if the output data number not equals the input data number.
+\item[Services:] Outputs the results of the calculations in a text file. Verifies that the output results satisfying the system constraints. Throws a warning if the output data number not equals the input data number.
 \item[Implemented By:] FFTL
 \end{description} 
 
@@ -282,7 +282,7 @@ selected.
 \item[Implemented By:] --
 \end{description}
 
-\subsubsection{Sequence Data Structure Module (\mref{mSeqDS})}
+\subsubsection{Array Data Structure Module (\mref{mSeqDS})}
 
 \begin{description}
 \item[Secrets:] The data structure for an array data type.
