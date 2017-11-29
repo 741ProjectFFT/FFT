@@ -150,7 +150,9 @@ decisions will be changed.
 \item[\refstepcounter{ucnum} \uctheucnum \label{ucInput}:] There will always be
   a source of input data external to the software.
 \item[\refstepcounter{ucnum} \uctheucnum \label{ucGoal}:] The goal of the library is to do FFT calculation. 
-\item[\refstepcounter{ucnum} \uctheucnum \label{ucInputFormat}:] Whatever the input format is, they are all eventually transferred to datas to be computed.
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucInputFormat}:] Whatever the
+  input format is, they are all eventually transferred to datas to be
+  computed. \wss{This seems like a strange unlikely change?}
 \end{description}
 
 \section{Module Hierarchy} \label{SecMH}
@@ -288,7 +290,9 @@ selected.
 \item[Secrets:] The data structure for an array data type.
 \item[Services:] Provides array manipulation, including building an array,
   accessing a specific entry, slicing an array, etc.
-\item[Implemented By:] C Programming Language
+\item[Implemented By:] C Programming Language \wss{The C programming language
+    does not have array slicing as far as I know.  If you need this, you will
+    likely have to find a library, or implement an ADT.}
 \end{description}
 
 
@@ -331,6 +335,9 @@ IM2 & \mref{mHH}, \mref{mInput}, \mref{mOutput}, \mref{FFTcal}, \mref{mSeqDS}\\
 \label{TblACT}
 \end{table}
 
+\wss{If multiple anticipated changes map to the same module, you should explain
+  why.  The usual goal is one module one secret one anticipated change.}
+
 \section{Use Hierarchy Between Modules} \label{SecUse}
 
 In this section, the uses hierarchy between modules is
@@ -352,6 +359,10 @@ because they use modules from the lower levels.
 \end{figure}
 
 %\section*{References}
+
+\wss{Good start for the design.  Remember that you may have to modify the design
+  as you work through the MIS and gain a deeper understanding of how your
+  modules interact.}
 
 \bibliographystyle {plainnat}
 \bibliography {MG}
