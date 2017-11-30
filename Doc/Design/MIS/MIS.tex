@@ -75,12 +75,11 @@ See SRS Documentation at \url {https://github.com/741ProjectFFT/FFT/tree/master/
 
 \section{Introduction}
 
-The following document details the Module Interface Specifications for
-\wss{Fill in your project name and description}
+The following document details the Module Interface Specifications for FFT (Fourier Transform Library). This library provides radix 2 and radix 3 FFT and IFFT functions. The input values will be read from files and the output will be written into a new text file. Fast Fourier transforms are widely used for many applications in engineering, science, and mathematics. FFT's importance derives from the fact that in signal processing and image processing it has made working in frequency domain equally computationally feasible as working in temporal or spatial domain. So this library will provide good service to other programs.\\
 
 Complementary documents include the System Requirement Specifications
 and Module Guide.  The full documentation and implementation can be
-found at \url{...}.  \wss{provide the url for your repo}
+found at \url{https://github.com/741ProjectFFT}. 
 
 \section{Notation}
 
@@ -210,12 +209,6 @@ verify\_data():
 (radix = 2, numberOfData $\neq$ $2^n, n\in \mathbb{N}$ $\Rightarrow$ NumberOfDataNotMatchRadixConstraint)\\
 (radix = 3, numberOfData $\neq$ $3^n, n\in \mathbb{N}$ $\Rightarrow$ NumberOfDataNotMatchRadixConstraint))
 \end{itemize}
-fill\_zero():
-\begin{itemize}
-\item transition: None
-\item output:  None
-\item exception: exc := None
-\end{itemize}
 
 
 \section{MIS of FFT Calculation Module} \label{Input} \wss{Use labels for cross-referencing}
@@ -253,37 +246,50 @@ None
 
 \subsubsection{Access Routine Semantics}
 
-rearrange\_data\_sequence():
+rearrange\_Radix2\_data\_sequence():
+\begin{itemize}
+\item transition: None
+\item output:  None
+\item exception: exc := None
+\item description: Decompose the original input sequence to two sequences which were taken from all the odd orders and even orders.
+And then redecompose each of those two new sequences into anthor two sequences by picking out the odd terms and the even terms.
+This function cannot complete the rearranging work untile each subsequence only contains two terms.
+\item example: input sequence: 0 1 2 3 4 5 6 7 $\rightarrow$ 0 2 4 6 1 3 5 7 $\rightarrow$ 0 4 2 6 1 5 3 7
+\end{itemize}
+rearrange\_Radix2\_data\_sequence():
+\begin{itemize}
+\item transition: None
+\item output:  None
+\item exception: exc := None
+\item description: Decompose the original input sequence to three sequences which were taken from all the 1n orders, 2n and 3n orders.
+And then redecompose each of those three new sequences into anthor three sequences by picking out the 1n terms 2n term and the 3n terms.
+This function cannot complete the rearranging work untile each subsequence only contains three terms.
+\item example: input sequence: 0 1 2 3 4 5 6 7 8 $\rightarrow$ 0 3 6 1 4 7 
+\end{itemize}
+
+calculate\_$\omega _{N}^{k}$\_set():
+\begin{itemize}
+\item transition: None
+\item output:  None
+\item exception: exc := None
+
+\end{itemize}
+unit\_butterfly\_radix2\_calculation():
+\begin{itemize}
+\item transition: None
+\item output:  None
+\item exception: exc := None
+\item description: This function basically takes two input values and then gives two output values with a butterfly calculation. The rule of butterfly calculation is: 
+\\output\_value\_1 = input\_value\_1 + $\omega_{N}^{k}$ * input\_value\_2;  
+\\output\_value\_2 = $\omega_{N}^{k}$ * input\_value\_2 -  input\_value\_1 
+\end{itemize}
+unit\_butterfly\_radix3\_calculation():
 \begin{itemize}
 \item transition: None
 \item output:  None
 \item exception: exc := None
 \end{itemize}
-calculate\_$\omega _{N}$\_set():
-\begin{itemize}
-\item transition: None
-\item output:  None
-\item exception: exc := None
-\end{itemize}
-radix2\_multiply\_calculation():
-\begin{itemize}
-\item transition: None
-\item output:  None
-\item exception: exc := None
-\end{itemize}
-radix2\_plus\_calculation():
-\begin{itemize}
-\item transition: None
-\item output:  None
-\item exception: exc := None
-\end{itemize}
-radix3\_multiply\_calculation():
-\begin{itemize}
-\item transition: None
-\item output:  None
-\item exception: exc := None
-\end{itemize}
-radix3\_plus\_calculation():
+complex\_number\_calculation():
 \begin{itemize}
 \item transition: None
 \item output:  None
