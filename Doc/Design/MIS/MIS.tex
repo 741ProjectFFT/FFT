@@ -63,6 +63,9 @@ Date 2 & 1.1 & Notes\\
 
 See SRS Documentation at \url {https://github.com/741ProjectFFT/FFT/tree/master/Doc/SRS}
 
+\wss{You don't actually seem to have used any symbols from your SRS.  Also, the
+  symbol list in your SRS does not seem to have been updated.}
+
 \wss{Also add any additional symbols, abbreviations or acronyms}
 
 \newpage
@@ -76,6 +79,9 @@ See SRS Documentation at \url {https://github.com/741ProjectFFT/FFT/tree/master/
 \section{Introduction}
 
 The following document details the Module Interface Specifications for FFT (Fourier Transform Library). This library provides radix 2 and radix 3 FFT and IFFT functions. The input values will be read from files and the output will be written into a new text file. Fast Fourier transforms are widely used for many applications in engineering, science, and mathematics. FFT's importance derives from the fact that in signal processing and image processing it has made working in frequency domain equally computationally feasible as working in temporal or spatial domain. So this library will provide good service to other programs.\\
+
+\wss{You really should figure out how to do 80 column wide text.  This will
+  become important for the code and documentation that you add to Drasil.}
 
 Complementary documents include the System Requirement Specifications
 and Module Guide.  The full documentation and implementation can be
@@ -109,6 +115,8 @@ real & $\mathbb{R}$ & any number in (-$\infty$, $\infty$)\\
 \bottomrule
 \end{tabular} 
 \end{center}
+
+\wss{As Devi pointed out, you should have the complex type listed here.}
 
 \noindent
 The specification of \progname \ uses some derived data types: sequences, strings, and
@@ -145,6 +153,10 @@ The following table is taken directly from the Module Guide document for this pr
 \caption{Module Hierarchy}
 \label{TblMH}
 \end{table}
+
+\wss{I would remove the word computing from the titles of the input and output
+  modules.  This implies that computing will be done, but really the computing
+  is done by the FFT module.}
 
 \newpage
 ~\newpage
@@ -210,6 +222,19 @@ verify\_data():
 (radix = 3, numberOfData $\neq$ $3^n, n\in \mathbb{N}$ $\Rightarrow$ NumberOfDataNotMatchRadixConstraint))
 \end{itemize}
 
+\wss{Your input module doesn't actually process any inputs.  Your transitions
+  and outputs are empty.  You only have exceptions.  What is it that you are
+  actually planning on doing with this module?  At this point, sticking with
+  simple is probably your best bet.  Why don't you just have your input module
+  process a file of inputs and return a sequence of complex numbers (or two
+  sequences of real numbers, with one representing the imaginary part).  (If you
+  use a different data structure for your x values, that is also fine.  The main
+  point is that this module takes a filename as input and returns the X values
+  as output.)  If you have files, then you will need to add an environment
+  variable for the file.}
+
+\wss{Rather than exception when the data is not the right size, you could issue
+  a warning and pad the data with zeros.}
 
 \section{MIS of FFT Calculation Module} \label{Input} \wss{Use labels for cross-referencing}
 
@@ -241,6 +266,8 @@ r3real()&$\mathbb{R}^ n$& -&\\
 
 \subsection{Semantics}
 
+\wss{Your syntax and semantics sections do not match.}
+
 \subsubsection{State Variables}
 None
 
@@ -252,7 +279,8 @@ rearrange\_Radix2\_data\_sequence():
 \item output:  None
 \item exception: exc := None
 \item description: Decompose the original input sequence to two sequences which were taken from all the odd orders and even orders.
-And then redecompose each of those two new sequences into anthor two sequences by picking out the odd terms and the even terms.
+And then redecompose each of those two new sequences into anthor \wss{spell
+  check!} two sequences by picking out the odd terms and the even terms.
 This function cannot complete the rearranging work untile each subsequence only contains two terms.
 \item example: input sequence: 0 1 2 3 4 5 6 7 $\rightarrow$ 0 2 4 6 1 3 5 7 $\rightarrow$ 0 4 2 6 1 5 3 7
 \end{itemize}
@@ -296,6 +324,16 @@ complex\_number\_calculation():
 \item exception: exc := None
 \end{itemize}
 
+\wss{The calculate module should show the relevant equations from the SRS, along
+  with your pseudo code description of the behaviour.}
+
+\wss{This module does not have any outputs.  You need a way for the external
+  word to see your calculations.  I agree that you don't want to put this
+  information in a state variable, so an output is necessary.}
+
+\wss{Some of the access programs have none for all of transition, output and
+  exception.  This implies that the access program will not do anything.}
+
 \section{MIS of Output Computing Module} \label{Input} \wss{Use labels for cross-referencing}
 
 \subsection{Module}
@@ -326,6 +364,8 @@ outputCmpt & $\mathbb{C}^ n$ or $\mathbb{R}^ n$& - & \\
 \subsubsection{State Variables}
 None
 
+\wss{If there are files, then you should have an environment variable.}
+
 \subsubsection{Access Routine Semantics}
 
 generate\_file():
@@ -344,16 +384,22 @@ verify\_output\_data():
 outputDataNumber $\neq$ inputDataNumberAfterFill0 $\Rightarrow$ DataNumberError)
 \end{itemize}
 
+\wss{It looks like you ran out of time for finishing this MIS.  If you have any
+  questions, please let me know.}
 
 \newpage
 
 \bibliographystyle {plainnat}
 \bibliography {../../../ReferenceMaterial/References}
 
+\wss{Two references are missing from your bib file.}
+
 \newpage
 
 \section{Appendix} \label{Appendix}
 
 \wss{Extra information if required}
+
+\wss{If you don't have an appendix, then you don't need this section.}
 
 \end{document}
