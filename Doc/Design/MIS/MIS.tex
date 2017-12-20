@@ -63,8 +63,6 @@ Date 2 & 1.1 & Notes\\
 
 See SRS Documentation at \url {https://github.com/741ProjectFFT/FFT/tree/master/Doc/SRS}
 
-\wss{You don't actually seem to have used any symbols from your SRS.  Also, the
-  symbol list in your SRS does not seem to have been updated.}
 
 \wss{Also add any additional symbols, abbreviations or acronyms}
 
@@ -157,7 +155,7 @@ The following table is taken directly from the Module Guide document for this pr
 
 ~\newpage
 
-\section{MIS of Input  Module} \label{Input} \wss{Use labels for cross-referencing}
+\section{MIS of Input  Module} \label{Input}
 
 \subsection{Module}
 
@@ -227,14 +225,14 @@ verify\_number\_input():
 
 
 
-\section{MIS of FFT Calculation Module} \label{Input} \wss{Use labels for cross-referencing}
+\section{MIS of FFT Calculation Module} \label{Cal}
 
 \subsection{Module}
 
 FFT\_calculate
 
 \subsection{Uses}
-None
+Input Module (Section\ref{Input})
 \subsection{Syntax}
 
 \subsubsection{Exported Access Programs}
@@ -258,8 +256,6 @@ mark&$\mathbb{N}$& -&\\
 \end{center}
 
 \subsection{Semantics}
-
-\wss{Your syntax and semantics sections do not match.}
 
 \subsubsection{State Variables}
 arrComN: $\mathbb{C}^ n,$
@@ -310,14 +306,14 @@ This function cannot complete the rearranging work untile each subsequence only 
 \wss{The calculate module should show the relevant equations from the SRS, along
   with your pseudo code description of the behaviour.}
 
-\section{MIS of Output  Module} \label{Input} \wss{Use labels for cross-referencing}
+\section{MIS of Output  Module} \label{output}
 
 \subsection{Module}
 
 output\_compute
 
 \subsection{Uses}
-None
+FFT Calculation Module (Section\ref{Cal})
 \subsection{Syntax}
 
 \subsubsection{Exported Access Programs}
@@ -329,7 +325,10 @@ None
 \hline
 %load\_data & string & - &  ReadFileFail\\
 %verify\_input & - & - & -\\
-outputCmpt & $\mathbb{C}^ n$ or $\mathbb{R}^ n$& - & \\
+outputArray & $\mathbb{C}^ n$ or $\mathbb{R}^ n$& $\mathbb{C}^ n$ or $\mathbb{R}^ n$& \\
+generateFile& $\mathbb{C}^ n$ or $\mathbb{R}^ n$& txt file&\\
+txt file & $\mathbb{C}^ n$ or $\mathbb{R}^ n$&.txt&\\
+
 
 \hline
 \end{tabular}
@@ -338,44 +337,36 @@ outputCmpt & $\mathbb{C}^ n$ or $\mathbb{R}^ n$& - & \\
 \subsection{Semantics}
 
 \subsubsection{State Variables}
-None
+txt file
 
-\wss{If there are files, then you should have an environment variable.}
 
 \subsubsection{Access Routine Semantics}
-
-generate\_file():
+outputArray():
+\begin{itemize}
+\item transition: get the output complex number array and print out the output numbers
+\item output:  each output numbers
+\item exception: exc := (\\
+None)
+\end{itemize}
+generateFile():
 
 \begin{itemize}
-\item transition: None
-\item output:  None
+\item transition: get the output complex number array and write each complex number in format "real part \& image part" in a txt file with a given name.
+\item output:  generate a new txt file with output number in it.
 \item exception: exc := (\\
 GenerateFileFail)
 \end{itemize}
-verify\_output\_data():
-\begin{itemize}
-\item transition: None
-\item output:  None
-\item exception: exc := (\\
-outputDataNumber $\neq$ inputDataNumberAfterFill0 $\Rightarrow$ DataNumberError)
-\end{itemize}
 
-\wss{It looks like you ran out of time for finishing this MIS.  If you have any
-  questions, please let me know.}
+
 
 \newpage
 
 \bibliographystyle {plainnat}
 \bibliography {../../../ReferenceMaterial/References}
 
-\wss{Two references are missing from your bib file.}
 
 \newpage
 
-\section{Appendix} \label{Appendix}
 
-\wss{Extra information if required}
-
-\wss{If you don't have an appendix, then you don't need this section.}
 
 \end{document}
