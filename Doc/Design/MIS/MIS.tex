@@ -112,11 +112,12 @@ character & char & a single symbol or digit\\
 integer & $\mathbb{Z}$ & a number without a fractional component in (-$\infty$, $\infty$) \\
 natural number & $\mathbb{N}$ & a number without a fractional component in [1, $\infty$) \\
 real & $\mathbb{R}$ & any number in (-$\infty$, $\infty$)\\
+complex & $\mathbb{C}$ & any number can be expressed in the form a + bi, where a and b are real numbers\\
+pointer & * & a programming language object whose value refers to another value stored elsewhere in the computer memory using its memory address.\\
+boolean &$\mathbb{B}$  & a programming language object whose value refers to another value stored elsewhere in the computer memory using its memory address.\\
 \bottomrule
 \end{tabular} 
 \end{center}
-
-\wss{As Devi pointed out, you should have the complex type listed here.}
 
 \noindent
 The specification of \progname \ uses some derived data types: sequences, strings, and
@@ -141,9 +142,9 @@ The following table is taken directly from the Module Guide document for this pr
 \midrule
 
 \multirow{3}{0.3\textwidth}{Behaviour-Hiding}
-& Input Computing Module\\
+& Input Module\\
 & FFT Calculation Module\\
-& Output Computing Module\\
+& Output  Module\\
 \midrule
 
 \multirow{1}{0.3\textwidth}{Software Decision} & Array Data Structure Module\\
@@ -154,18 +155,13 @@ The following table is taken directly from the Module Guide document for this pr
 \label{TblMH}
 \end{table}
 
-\wss{I would remove the word computing from the titles of the input and output
-  modules.  This implies that computing will be done, but really the computing
-  is done by the FFT module.}
-
-\newpage
 ~\newpage
 
-\section{MIS of Input Computing Module} \label{Input} \wss{Use labels for cross-referencing}
+\section{MIS of Input  Module} \label{Input} \wss{Use labels for cross-referencing}
 
 \subsection{Module}
 
-input\_compute
+Load
 
 \subsection{Uses}
 None
@@ -174,16 +170,23 @@ None
 \subsubsection{Exported Access Programs}
 
 \begin{center}
-\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
+\begin{tabular}{p{3.5cm} p{4cm} p{4cm} p{2cm}}
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
 %load\_data & string & - &  ReadFileFail\\
 %verify\_input & - & - & -\\
-inputCmpt & string, $\mathbb{Z}\in\{2, 3\}$, string& - & \\
-filename& string & - & -\\
-radix&$\mathbb{Z} \in \{2, 3\}$ & - & -\\
-data\_type& string& -&-\\
+load\_data\_complex & $char^{N}( N \in \mathbb{N}$),\\ &$\mathbb{R}**$,\\ &$\mathbb{R}**$, \\ &$\mathbb{N}*$ & - & \\
+load\_data\_real &$char^{N}( N \in \mathbb{N}$),\\ &$\mathbb{R}**$, \\ &$\mathbb{N}*$ & - & \\
+makeComplexArray&$\mathbb{R}*$,\\ &$\mathbb{R}*$,\\ &$\mathbb{N}$ 
+&$\mathbb{C}*$&\\
+filename&  $char^{N}( N \in \mathbb{N}$) & - & -\\
+ppRealNumber&$\mathbb{N}**$ & $\mathbb{N}**$ & -\\
+ppImageNumber&$\mathbb{N}**$&$\mathbb{N}**$ & -\\
+pInputSize& $\mathbb{Z}*$&  $\mathbb{Z}*$&-\\
+size&$\mathbb{N}$ & -& -\\
+realArray&$\mathbb{R}*$&-& -\\
+imgArray& $\mathbb{R}*$&-&-\\
 
 \hline
 \end{tabular}
@@ -192,49 +195,37 @@ data\_type& string& -&-\\
 \subsection{Semantics}
 
 \subsubsection{State Variables}
-None
-
+ppRealNumber: $\mathbb{N}**$ \\
+ppImageNumber: $\mathbb{N}**$\\
+pInputSize: $\mathbb{Z}*$\\
+realArray: $\mathbb{R}*$\\
+imgArray: $\mathbb{R}*$\\
 \subsubsection{Access Routine Semantics}
 
-load\_data():
-
+load\_data\_complex :
 \begin{itemize}
-\item transition: None
-\item output:  None
+\item transition: ppRealNumber, ppImageNumber, pInputSize
+\item output: $out:$= self
 \item exception: exc := (\\
-FilenameCannotFound,\\
  FileReadFail)
 \end{itemize}
-verify\_para():
+load\_data\_real :
 \begin{itemize}
-\item transition: None
-\item output:  None
+\item transition: ppRealNumber, pInputSize
+\item output: $out:$= self
 \item exception: exc := (\\
-radix $\not\in \{2, 3\} \Rightarrow$ RadixIsNotValid,\\
-data\_type $\neq$ Para\_data\_type $\Rightarrow $ ParaNotMatchRealDataType)
+ FileReadFail)
 \end{itemize}
-verify\_data():
+verify\_number\_input():
 \begin{itemize}
-\item transition: None
-\item output:  None
+\item transition: Check whether pInputSize = $2^{\mathbb{N}}$ or =  $3^{\mathbb{N}}$
+\item output: warning message
 \item exception: exc := (\\
 (radix = 2, numberOfData $\neq$ $2^n, n\in \mathbb{N}$ $\Rightarrow$ NumberOfDataNotMatchRadixConstraint)\\
 (radix = 3, numberOfData $\neq$ $3^n, n\in \mathbb{N}$ $\Rightarrow$ NumberOfDataNotMatchRadixConstraint))
 \end{itemize}
 
-\wss{Your input module doesn't actually process any inputs.  Your transitions
-  and outputs are empty.  You only have exceptions.  What is it that you are
-  actually planning on doing with this module?  At this point, sticking with
-  simple is probably your best bet.  Why don't you just have your input module
-  process a file of inputs and return a sequence of complex numbers (or two
-  sequences of real numbers, with one representing the imaginary part).  (If you
-  use a different data structure for your x values, that is also fine.  The main
-  point is that this module takes a filename as input and returns the X values
-  as output.)  If you have files, then you will need to add an environment
-  variable for the file.}
 
-\wss{Rather than exception when the data is not the right size, you could issue
-  a warning and pad the data with zeros.}
 
 \section{MIS of FFT Calculation Module} \label{Input} \wss{Use labels for cross-referencing}
 
@@ -249,16 +240,18 @@ None
 \subsubsection{Exported Access Programs}
 
 \begin{center}
-\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
+\begin{tabular}{p{3cm} p{4cm} p{4cm} p{2cm}}
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
 %load\_data & string & - &  ReadFileFail\\
 %verify\_input & - & - & -\\
-r2com() &$\mathbb{C}^ n$& - & \\
-r2real()&$\mathbb{R}^ n$ & - & \\
-r3com()&$\mathbb{C}^ n$ & - & \\
-r3real()&$\mathbb{R}^ n$& -&\\
+radix2FFTCalc&$\mathbb{C}^ n,$\\&$\mathbb{N}$\\&$\mathbb{N}$& $\mathbb{C}^ n,$& \\
+radix3FFTCalc&$\mathbb{C}^ n,$\\&$\mathbb{N}$\\&$\mathbb{N}$&$\mathbb{C}^ n,$& \\
+fakeImageTerm&$\mathbb{N}$ &$\mathbb{R}$& \\
+arrComN&$\mathbb{C}^ n,$&$\mathbb{C}^ n,$&\\
+size&$\mathbb{N}$& -&\\
+mark&$\mathbb{N}$& -&\\
 
 \hline
 \end{tabular}
@@ -269,72 +262,55 @@ r3real()&$\mathbb{R}^ n$& -&\\
 \wss{Your syntax and semantics sections do not match.}
 
 \subsubsection{State Variables}
-None
+arrComN: $\mathbb{C}^ n,$
 
 \subsubsection{Access Routine Semantics}
+getEvenOddArray(array, size):
+\begin{itemize}
+\item transition: Splite an array to a structure called EVEN\_ODD\_ARRAY which basically splite an array to new arrays by even and odd order and store them.
+\item output:  a structure with sorted number
+\item exception: exc := None
+\end{itemize}
+getThreeArray(array, size):
+\begin{itemize}
+\item transition: Splite an array to a structure called THREE\_ARRAY which basically splite an array to new arrays by three order and store them.
+\item output:  a structure with sorted number
+\item exception: exc := None
+\end{itemize}
+unitBF():
+\begin{itemize}
+\item transition: A radix 2 unit butterfly calculation
+\item output:  A BTRValue structure with two values in it
+\item exception: exc := None
+\end{itemize}
+unitBF2():
+\begin{itemize}
+\item transition: A radix 3 unit butterfly calculation
+\item output:  A BTRValue2  structure with three values in it
+\item exception: exc := None
+\end{itemize}
+ReOrder():
+\begin{itemize}
+\item transition:  Decompose the original input sequence to two sequences which were taken from all the odd orders and even orders.
+And then redecompose each of those two new sequences into another  two sequences by picking out the odd terms and the even terms.
+This function cannot complete the rearranging work untile each subsequence only contains two terms.\\
+\item output:  new array in new order
+\item exception: exc := None
+\end{itemize}
+ReOrder2():
+\begin{itemize}
+\item transition:  Decompose the original input sequence to three sequences which were taken from every three tuples sorted by first, second and third order.
+And then redecompose each of those three new sequences into another three sequences by picking out the different orded terms.
+This function cannot complete the rearranging work untile each subsequence only contains three terms.\\
+\item output:  new array in new order
+\item exception: exc := None
 
-rearrange\_Radix2\_data\_sequence():
-\begin{itemize}
-\item transition: None
-\item output:  None
-\item exception: exc := None
-\item description: Decompose the original input sequence to two sequences which were taken from all the odd orders and even orders.
-And then redecompose each of those two new sequences into anthor \wss{spell
-  check!} two sequences by picking out the odd terms and the even terms.
-This function cannot complete the rearranging work untile each subsequence only contains two terms.
-\item example: input sequence: 0 1 2 3 4 5 6 7 $\rightarrow$ 0 2 4 6 1 3 5 7 $\rightarrow$ 0 4 2 6 1 5 3 7
-\end{itemize}
-rearrange\_Radix2\_data\_sequence():
-\begin{itemize}
-\item transition: None
-\item output:  None
-\item exception: exc := None
-\item description: Decompose the original input sequence to three sequences which were taken from all the 1n orders, 2n and 3n orders.
-And then redecompose each of those three new sequences into anthor three sequences by picking out the 1n terms 2n term and the 3n terms.
-This function cannot complete the rearranging work untile each subsequence only contains three terms.
-\item example: input sequence: 0 1 2 3 4 5 6 7 8 $\rightarrow$ 0 3 6 1 4 7 
-\end{itemize}
-
-calculate\_$\omega _{N}^{k}$\_set():
-\begin{itemize}
-\item transition: None
-\item output:  None
-\item exception: exc := None
-
-\end{itemize}
-unit\_butterfly\_radix2\_calculation():
-\begin{itemize}
-\item transition: None
-\item output:  None
-\item exception: exc := None
-\item description: This function basically takes two input values and then gives two output values with a butterfly calculation. The rule of butterfly calculation is: 
-\\output\_value\_1 = input\_value\_1 + $\omega_{N}^{k}$ * input\_value\_2;  
-\\output\_value\_2 = $\omega_{N}^{k}$ * input\_value\_2 -  input\_value\_1 
-\end{itemize}
-unit\_butterfly\_radix3\_calculation():
-\begin{itemize}
-\item transition: None
-\item output:  None
-\item exception: exc := None
-\end{itemize}
-complex\_number\_calculation():
-\begin{itemize}
-\item transition: None
-\item output:  None
-\item exception: exc := None
 \end{itemize}
 
 \wss{The calculate module should show the relevant equations from the SRS, along
   with your pseudo code description of the behaviour.}
 
-\wss{This module does not have any outputs.  You need a way for the external
-  word to see your calculations.  I agree that you don't want to put this
-  information in a state variable, so an output is necessary.}
-
-\wss{Some of the access programs have none for all of transition, output and
-  exception.  This implies that the access program will not do anything.}
-
-\section{MIS of Output Computing Module} \label{Input} \wss{Use labels for cross-referencing}
+\section{MIS of Output  Module} \label{Input} \wss{Use labels for cross-referencing}
 
 \subsection{Module}
 

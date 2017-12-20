@@ -150,9 +150,7 @@ decisions will be changed.
 \item[\refstepcounter{ucnum} \uctheucnum \label{ucInput}:] There will always be
   a source of input data external to the software.
 \item[\refstepcounter{ucnum} \uctheucnum \label{ucGoal}:] The goal of the library is to do FFT calculation. 
-\item[\refstepcounter{ucnum} \uctheucnum \label{ucInputFormat}:] Whatever the
-  input format is, they are all eventually transferred to datas to be
-  computed. \wss{This seems like a strange unlikely change?}
+
 \end{description}
 
 \section{Module Hierarchy} \label{SecMH}
@@ -165,8 +163,8 @@ actually be implemented.
 \begin{description}
 
 \item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Hardware-Hiding Module
-\item [\refstepcounter{mnum} \mthemnum \label{mInput}:] Input Computing Module
-\item [\refstepcounter{mnum} \mthemnum \label{mOutput}:] Output  Computing Module
+\item [\refstepcounter{mnum} \mthemnum \label{mInput}:] Input  Module
+\item [\refstepcounter{mnum} \mthemnum \label{mOutput}:] Output  Module
 \item [\refstepcounter{mnum} \mthemnum \label{FFTcal}:] FFT Calculation Module
 \item [\refstepcounter{mnum} \mthemnum \label{mSeqDS}:] Array Data Structure Module
 \end{description}
@@ -183,9 +181,9 @@ actually be implemented.
 \midrule
 
 \multirow{3}{0.3\textwidth}{Behaviour-Hiding Module}
-& Input Computing Module\\
+& Input  Module\\
 & FFT Calculation Module\\
-& Output Computing Module\\
+& Output Module\\
 \midrule
 
 \multirow{3}{0.3\textwidth}{Software Decision Module}\\
@@ -244,7 +242,7 @@ selected.
 \item[Implemented By:] --
 \end{description}
 
-\subsubsection{Input Computing Module (\mref{mInput})}
+\subsubsection{Input  Module (\mref{mInput})}
 
 \begin{description}
 \item[Secrets:]The format and structure of the input data and software constraints.
@@ -254,7 +252,7 @@ selected.
 \end{description}
 
 
-\subsubsection{Output Computing Module (\mref{mOutput})}
+\subsubsection{Output Module (\mref{mOutput})}
 
 \begin{description}
 \item[Secrets:] The format and structure of the output data and output constraints.
@@ -334,9 +332,9 @@ IM2 & \mref{mHH}, \mref{mInput}, \mref{mOutput}, \mref{FFTcal}, \mref{mSeqDS}\\
 \caption{Trace Between Anticipated Changes and Modules}
 \label{TblACT}
 \end{table}
-
-\wss{If multiple anticipated changes map to the same module, you should explain
-  why.  The usual goal is one module one secret one anticipated change.}
+\acref{acInput}, \acref{acInputPara}, \acref{acInputcons} all map to \mref{mInput} because Input Module combine loading data and data verification together.
+This also means that Input Module not only has one secret. Because data loading and verification never really occur separately, thus combing two secrets together
+also makes sense.
 
 \section{Use Hierarchy Between Modules} \label{SecUse}
 
